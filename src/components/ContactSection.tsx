@@ -125,7 +125,7 @@ export default function ContactSection() {
 
       <div className="container-luxury relative z-10">
         <AnimatedSection className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-foreground">
+          <h2 className={`text-[clamp(2.5rem,8vw,5.5rem)] font-black tracking-tighter mb-4 leading-none ${isSpidy ? 'text-white' : 'text-foreground'}`}>
             Let's Build Something <span className={isSpidy ? 'text-red-500 underline underline-offset-8 decoration-red-500/30' : 'text-zinc-900'}>Exceptional</span>
           </h2>
           <p className={`${isSpidy ? 'text-slate-400' : 'text-muted-foreground'} text-lg max-w-2xl mx-auto font-light`}>

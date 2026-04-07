@@ -131,7 +131,7 @@ const AboutSection = () => {
               <motion.p variants={itemVariants} className={`text-xs font-black tracking-[0.4em] uppercase mb-4 ${isSpidy ? 'text-red-500' : 'text-primary'}`}>
                 The Profile
               </motion.p>
-              <motion.h2 variants={itemVariants} className={`text-6xl md:text-7xl font-bold tracking-tighter mb-8 leading-[0.9] ${isSpidy ? 'text-white' : 'text-slate-900'}`}>
+              <motion.h2 variants={itemVariants} className={`text-[clamp(3.5rem,10vw,6rem)] font-black tracking-tighter mb-8 leading-[0.85] ${isSpidy ? 'text-white' : 'text-slate-900'}`}>
                 Strategic. <br />
                 <span className="opacity-30 italic font-light">Innovative.</span>
               </motion.h2>
@@ -213,8 +213,8 @@ const AboutSection = () => {
                     whileHover={{ scale: 1.02, y: -5 }}
                     whileTap={{ scale: 0.98 }}
                     className={`px-12 py-6 rounded-full font-black text-[13px] uppercase tracking-[0.4em] flex items-center gap-4 transition-all duration-300 shadow-2xl ${isSpidy
-                        ? 'bg-red-600 text-white hover:bg-red-700 shadow-red-600/30'
-                        : 'bg-slate-900 text-white hover:bg-black shadow-black/20'
+                      ? 'bg-red-600 text-white hover:bg-red-700 shadow-red-600/30'
+                      : 'bg-slate-900 text-white hover:bg-black shadow-black/20'
                       }`}
                   >
                     Secure Resume <Download size={20} strokeWidth={3} />

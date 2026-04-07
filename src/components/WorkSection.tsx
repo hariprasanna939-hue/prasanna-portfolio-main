@@ -53,11 +53,10 @@ const ProjectCard = ({ project, isSpidy, index }) => {
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative group overflow-hidden rounded-[2rem] border transition-all duration-700 ${project.size} ${
-        isSpidy 
-        ? 'bg-[#0f0f0f] border-white/5 hover:border-red-500/40' 
-        : 'bg-white border-black/[0.03] hover:border-primary/20 shadow-sm hover:shadow-2xl'
-      }`}
+      className={`relative group overflow-hidden rounded-[2rem] border transition-all duration-700 ${project.size} ${isSpidy
+          ? 'bg-[#0f0f0f] border-white/5 hover:border-red-500/40'
+          : 'bg-white border-black/[0.03] hover:border-primary/20 shadow-sm hover:shadow-2xl'
+        }`}
     >
       {/* Dynamic Gradient Background */}
       <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br ${isSpidy ? project.spidyColor : project.color}`} />
@@ -65,14 +64,13 @@ const ProjectCard = ({ project, isSpidy, index }) => {
       <div className="relative z-10 p-8 h-full flex flex-col justify-between">
         <div>
           <div className="flex justify-between items-start mb-8">
-            <div className={`p-3 rounded-2xl backdrop-blur-md transition-colors ${
-              isSpidy ? 'bg-white/5 text-red-500' : 'bg-black/5 text-primary'
-            }`}>
+            <div className={`p-3 rounded-2xl backdrop-blur-md transition-colors ${isSpidy ? 'bg-white/5 text-red-500' : 'bg-black/5 text-primary'
+              }`}>
               {project.icon}
             </div>
             <div className="flex gap-3">
-              <a href={project.github} className="text-muted-foreground hover:text-foreground transition-colors"><Github size={18}/></a>
-              <a href={project.link} className="text-muted-foreground hover:text-foreground transition-colors"><ExternalLink size={18}/></a>
+              <a href={project.github} className="text-muted-foreground hover:text-foreground transition-colors"><Github size={18} /></a>
+              <a href={project.link} className="text-muted-foreground hover:text-foreground transition-colors"><ExternalLink size={18} /></a>
             </div>
           </div>
 
@@ -88,38 +86,37 @@ const ProjectCard = ({ project, isSpidy, index }) => {
         </div>
 
         <div className="mt-8">
-            <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.filter(t => t).map(tag => (
-                    <span key={tag} className={`text-[9px] font-bold px-3 py-1 rounded-full border transition-all ${
-                        isSpidy ? 'border-white/10 text-white/50 bg-white/5' : 'border-black/5 text-black/40 bg-black/5'
-                    }`}>
-                        {tag}
-                    </span>
-                ))}
-            </div>
-            
-            <motion.a 
-                href={project.link}
-                className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider group/btn ${isSpidy ? 'text-red-500' : 'text-primary'}`}
-            >
-                View Project 
-                <motion.span animate={{ x: hovered ? 5 : 0 }}>
-                    <ArrowUpRight size={14} />
-                </motion.span>
-            </motion.a>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tags.filter(t => t).map(tag => (
+              <span key={tag} className={`text-[9px] font-bold px-3 py-1 rounded-full border transition-all ${isSpidy ? 'border-white/10 text-white/50 bg-white/5' : 'border-black/5 text-black/40 bg-black/5'
+                }`}>
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <motion.a
+            href={project.link}
+            className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider group/btn ${isSpidy ? 'text-red-500' : 'text-primary'}`}
+          >
+            View Project
+            <motion.span animate={{ x: hovered ? 5 : 0 }}>
+              <ArrowUpRight size={14} />
+            </motion.span>
+          </motion.a>
         </div>
       </div>
 
       {/* Spidy Web Detail (Only in Spidy Mode) */}
       {isSpidy && (
-          <div className="absolute -bottom-10 -right-10 opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
-              <svg width="200" height="200" viewBox="0 0 100 100" fill="none" stroke="currentColor" className="text-red-600">
-                  <circle cx="50" cy="50" r="10" />
-                  <circle cx="50" cy="50" r="20" />
-                  <circle cx="50" cy="50" r="30" />
-                  <path d="M50 0V100M0 50H100M15 15L85 85M85 15L15 85" strokeWidth="0.5" />
-              </svg>
-          </div>
+        <div className="absolute -bottom-10 -right-10 opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+          <svg width="200" height="200" viewBox="0 0 100 100" fill="none" stroke="currentColor" className="text-red-600">
+            <circle cx="50" cy="50" r="10" />
+            <circle cx="50" cy="50" r="20" />
+            <circle cx="50" cy="50" r="30" />
+            <path d="M50 0V100M0 50H100M15 15L85 85M85 15L15 85" strokeWidth="0.5" />
+          </svg>
+        </div>
       )}
     </motion.div>
   );
@@ -132,21 +129,20 @@ const WorkSection = () => {
   return (
     <section id="work" className={`relative py-32 px-6 transition-colors duration-1000 ${isSpidy ? 'bg-black' : 'bg-[#fafafa]'}`}>
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header Section */}
         <header className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className={`inline-block px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6 ${
-                  isSpidy ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-primary/5 text-primary border border-primary/10'
-              }`}
+              className={`inline-block px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-6 ${isSpidy ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-primary/5 text-primary border border-primary/10'
+                }`}
             >
               Portfolio 2024
             </motion.div>
-            <h2 className={`text-6xl md:text-7xl font-bold tracking-tighter leading-[0.9] ${isSpidy ? 'text-white' : 'text-slate-900'}`}>
-              Impactful <br/>
+            <h2 className={`text-[clamp(3rem,10vw,5.5rem)] font-black tracking-tighter leading-[0.9] ${isSpidy ? 'text-white' : 'text-slate-900'}`}>
+              Impactful <br />
               <span className="opacity-30">My Projects.</span>
             </h2>
           </div>

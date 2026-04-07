@@ -65,7 +65,10 @@ const HeroSection = () => {
             </motion.div>
 
             {/* Note: Ensure these use motion.h1 and motion.p */}
-            <motion.h1 variants={itemVariants} className={`text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 ${isSpidy ? 'text-white' : 'text-slate-900'}`}>
+            <motion.h1
+              variants={itemVariants}
+              className={`text-[clamp(2.5rem,10vw,5.5rem)] font-black tracking-tighter leading-[0.9] mb-8 ${isSpidy ? 'text-white' : 'text-slate-900'}`}
+            >
               Design that <br />
               <span className={`italic font-light opacity-40 ${isSpidy ? 'text-red-500' : ''}`}>Transforms</span> <br />
               Performance.
@@ -117,7 +120,7 @@ const HeroSection = () => {
                 />
               )}
 
-              <div className={`relative z-10 w-72 h-72 md:w-[450px] md:h-[450px] rounded-[3rem] overflow-hidden border-2 transition-all duration-700 ${isSpidy
+              <div className={`relative z-10 w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px] rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border-2 transition-all duration-700 ${isSpidy
                 ? 'border-red-500/30 shadow-[0_0_80px_rgba(220,38,38,0.2)] grayscale-[0.2]'
                 : 'border-black/5 shadow-2xl rotate-3 hover:rotate-0'
                 }`}>
