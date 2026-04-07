@@ -16,7 +16,7 @@ const ExpertiseSection = () => {
     <section id="expertise" className="py-24">
       <div className="container-luxury">
         <AnimatedSection>
-          <h2 className={`text-3xl sm:text-4xl font-semibold text-center mb-4 transition-colors duration-500 ${isSpidy ? 'text-white' : 'text-foreground'}`}>Core Expertise</h2>
+          <h2 className={`text-[clamp(2.5rem,8vw,5.5rem)] font-black tracking-tighter text-center mb-8 leading-none transition-colors duration-500 ${isSpidy ? 'text-white' : 'text-foreground'}`}>Core Expertise</h2>
           <p className={`text-center mb-16 max-w-md mx-auto transition-colors duration-500 ${isSpidy ? 'text-slate-400' : 'text-muted-foreground'}`}>
             Delivering exceptional results across every dimension of modern software.
           </p>

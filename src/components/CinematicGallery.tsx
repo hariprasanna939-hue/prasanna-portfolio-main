@@ -7,7 +7,8 @@ import {
   Maximize2,
   Plus,
   Upload,
-  Trash2
+  Trash2,
+  Focus
 } from "lucide-react";
 
 /* --- Types --- */
@@ -24,14 +25,85 @@ const INITIAL_ACTIVITIES: Activity[] = [
   {
     id: "founderx-2026",
     title: "FounderX Global Startup Summit",
-    description: "Representing at IITM Research Park. Engaging with 1000+ participants and 50+ VCs to discuss the future of tech and startups in India.",
+    description: `I just wrapped up an incredible day at the FounderX Global Startup Summit 2026 held at the IITM Research Park. The energy from the startup community in Chennai was electric!
+
+One of the biggest highlights was hearing from the Chief Guest, Thomas Dose (Managing Director, BMW India). He shared a fascinating perspective on the intersection of innovation and focus, drawing parallels between Steve Jobs' philosophy at Apple and the power of simplicity. His core message? "Simplify your life." In a world of constant noise, the ability to strip away the non-essential is what truly allows a founder to scale.
+
+I was also deeply inspired by C.K. Kumaravel, the co-founder of Naturals. His story is a masterclass in resilience—moving from challenges to building one of India’s most successful brands. He reminded us that entrepreneurship isn't just about the business; it's about the positive impact you create for others.
+
+A huge shoutout to Dakshin and the entire FounderX team for conducting such a seamless and high-value event. From the fireside chats to the networking sessions, it was a reminder that the Indian startup ecosystem is only getting stronger.
+
+Key Takeaways:
+• Simplicity is Ultimate Sophistication: Focus on what truly matters to your product and your life.
+• Resilience wins: As C.K. Kumaravel showed, setbacks are just setups for a bigger comeback.
+• Community is Everything: Surrounding yourself with fellow founders is the fastest way to grow.
+
+Ready to take these lessons into the rest of 2026!`,
     images: [
-      "https://replicate.delivery/yhqm/eBfP9vffjueU6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U/founder.jpg",
-      "https://replicate.delivery/yhqm/eBfP9vffjueU6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U/post_1.jpeg",
-      "https://replicate.delivery/yhqm/eBfP9vffjueU6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U6I6U/post3.jpeg"
+      "/images/founder.jpeg",
+      "/images/founder2.jpeg",
+      "/images/founder3.jpeg"
     ],
     date: "Jan 24-25, 2026",
     type: "event"
+  },
+  {
+    id: "Israel-India-Hackathon-2026",
+    title: "Israel–India Global Innovators Hackathon 2026",
+    description: `I’m excited to share that I participated in the Israel–India Global Innovators Hackathon 2026, organized by Ariel University, and received a Participant Certificate.
+
+🔍 Challenge D: The Auto-Compliance Mapper
+As part of the hackathon, I worked on an Open-Source AI Intelligence (OSINT) & Compliance solution focused on automating compliance mapping for India’s Digital Personal Data Protection (DPDP) Act, 2023.
+
+💡 What I built
+
+An AI-powered Compliance Search Engine that:
+
+Uses the public DPDP Act (2023) PDF as an open-source legal reference
+
+Accepts client documentation and technical findings (e.g., “Database is not encrypted”)
+
+Automatically maps findings to the exact DPDP Section / Article violated
+
+Built using local LLMs and open-source libraries (LangChain, vector search), ensuring data sovereignty and privacy
+
+Designed to generate a compliance status report to support GRC (Governance, Risk & Compliance) workflows
+
+🎯 Why this matters
+Manual compliance mapping is slow and error-prone. Automating this process can significantly improve legal accuracy, audit readiness, and advisory efficiency for organizations handling sensitive data.
+
+Grateful for the opportunity to collaborate, learn, and innovate on real-world compliance challenges at a global platform`,
+    images: [
+      "/images/hackathon1.jpeg",
+      "/images/hackathon2.jpeg",
+      "/images/hackathon3.jpeg"
+    ],
+    date: "Jan 24-25, 2026",
+    type: "hackathon"
+  },
+  {
+    id: "sih-2025",
+    title: "Smart India Hackathon 2025",
+    description: `Our team Crypto Core participated in the Internal Hackathon for Smart India Hackathon (SIH) at our college and we’re proud to share that we received the Best Team Award 🏆.
+
+We worked on building and prototyping an innovative solution, and through this journey, we also learned the importance of working together as a team 🤝. This recognition motivates us to take our idea forward with even more energy and dedication. 🚀
+
+Meet our powerful team 💪:
+• Akileshkumar
+• Prasannahari
+• Sri Thraishika
+• Subburaj
+• Saaisaran
+• Vedhavarshini
+
+A big thank you to our mentors, faculty, and teammates for their support and collaboration throughout this journey. 🙌`,
+    images: [
+      "/images/sih-team.jpeg",
+      "/images/sih-1.jpeg",
+      "/images/sih-2.jpeg"
+    ],
+    date: "Feb 10, 2025",
+    type: "hackathon"
   }
 ];
 
@@ -76,26 +148,51 @@ const CustomCursor = () => {
 /* --- Main Component --- */
 const CinematicGallery: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>(() => {
-    const saved = localStorage.getItem("portfolio-activities");
+    const saved = localStorage.getItem("portfolio-archive-data-v6");
     try {
-      return saved ? JSON.parse(saved) : INITIAL_ACTIVITIES;
+      const parsed = saved ? JSON.parse(saved) : [];
+      return (parsed && parsed.length > 0) ? parsed : INITIAL_ACTIVITIES;
     } catch (e) {
       return INITIAL_ACTIVITIES;
     }
   });
 
   useEffect(() => {
-    localStorage.setItem("portfolio-activities", JSON.stringify(activities));
+    localStorage.setItem("portfolio-archive-data-v6", JSON.stringify(activities));
   }, [activities]);
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
 
+  // Responsive dimensions
+  const [cardW, setCardW] = useState(540);
+  const [cardH, setCardH] = useState(620);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setCardW(w - 40);
+        setCardH(500);
+      } else if (w < 1024) {
+        setCardW(450);
+        setCardH(580);
+      } else {
+        setCardW(540);
+        setCardH(620);
+      }
+    };
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   const x = useMotionValue(0);
-  const ITEM_STEP = CARD_W + GAP;
+  const ITEM_STEP = cardW + GAP;
 
   const handleDrag = () => {
+    if (activities.length < 2) return;
     const currentX = x.get();
     const totalW = activities.length * ITEM_STEP;
     if (currentX > 0) x.set(currentX - totalW);
@@ -154,18 +251,18 @@ const CinematicGallery: React.FC = () => {
           <span className="hidden md:inline">Post Milestone</span>
         </button>
 
-        <div className="relative w-full touch-pan-y" style={{ height: CARD_H + 100 }} onWheel={handleWheel}>
-          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
+        <div className="relative w-full touch-pan-y" style={{ height: cardH + 100 }} onWheel={handleWheel}>
+          <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
 
           <motion.div
             drag="x"
             onDrag={handleDrag}
-            style={{ x, left: `calc(50% - ${CARD_W / 2}px)`, gap: `${GAP}px` }}
+            style={{ x, left: `calc(50% - ${cardW / 2}px)`, gap: `${GAP}px` }}
             className="absolute flex items-start cursor-grab active:cursor-grabbing will-change-transform"
           >
             {activities.map((activity) => (
-              <ActivityCard key={activity.id} activity={activity} onOpen={() => setSelectedActivity(activity)} />
+              <ActivityCard key={activity.id} activity={activity} w={cardW} h={cardH} onOpen={() => setSelectedActivity(activity)} />
             ))}
           </motion.div>
         </div>
@@ -193,15 +290,15 @@ const CinematicGallery: React.FC = () => {
 };
 
 /* --- Activity Card --- */
-const ActivityCard: React.FC<{ activity: Activity; onOpen: () => void }> = ({ activity, onOpen }) => {
+const ActivityCard: React.FC<{ activity: Activity; w: number; h: number; onOpen: () => void }> = ({ activity, w, h, onOpen }) => {
   return (
     <motion.div
       whileHover={{ y: -20 }}
       onClick={onOpen}
-      className="clickable-card group relative bg-[#0d0d0d] border border-white/10 rounded-[40px] overflow-hidden flex flex-col transition-all duration-700 hover:border-blue-500/50"
-      style={{ width: CARD_W, height: CARD_H }}
+      className="clickable-card group relative bg-[#0d0d0d] border border-white/10 rounded-[40px] overflow-hidden flex flex-col transition-all duration-700 hover:border-blue-500/50 flex-shrink-0"
+      style={{ width: w, height: h }}
     >
-      <div className="p-8 flex items-center justify-between">
+      <div className="p-6 md:p-8 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center text-sm font-black">PH</div>
           <div>
@@ -328,11 +425,11 @@ const AddActivityModal: React.FC<{
             </select>
           </div>
 
-          <textarea 
-            value={desc} 
-            placeholder="Describe your achievement..." 
-            className="w-full bg-white/5 border border-white/10 p-6 rounded-2xl text-white h-32 outline-none focus:border-blue-500 resize-none font-medium leading-relaxed" 
-            onChange={e => setDesc(e.target.value)} 
+          <textarea
+            value={desc}
+            placeholder="Describe your achievement..."
+            className="w-full bg-white/5 border border-white/10 p-6 rounded-2xl text-white h-32 outline-none focus:border-blue-500 resize-none font-medium leading-relaxed"
+            onChange={e => setDesc(e.target.value)}
           />
 
           <div
@@ -400,15 +497,15 @@ const PhotoLightroom: React.FC<{
         </div>
         <button onClick={onClose} className="pointer-events-auto p-6 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 shadow-2xl transition-all"><X size={28} /></button>
       </div>
-      
+
       <div className="flex-1 w-full h-full overflow-y-auto pt-40 pb-48 px-6 md:px-20 apple-scrollbar">
         <div className="flex flex-col items-center gap-12 max-w-5xl mx-auto">
-          <motion.img 
-            key={idx} 
-            src={activity.images[idx]} 
-            initial={{ opacity: 0, scale: 0.95 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            className="w-full h-auto rounded-[40px] shadow-2xl border border-white/5" 
+          <motion.img
+            key={idx}
+            src={activity.images[idx]}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full h-auto rounded-[40px] shadow-2xl border border-white/5"
           />
           {/* TEXT ALIGNMENT FIX: whitespace-pre-wrap ensures line breaks, text-justify makes it look clean */}
           <div className="w-full max-w-3xl text-white/60 text-lg leading-relaxed font-medium whitespace-pre-wrap text-justify">
