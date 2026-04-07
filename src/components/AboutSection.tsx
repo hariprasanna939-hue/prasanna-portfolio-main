@@ -121,7 +121,13 @@ const AboutSection = () => {
 
           {/* RIGHT: Content */}
           <div className="lg:col-span-7">
-            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <motion.div
+              variants={containerVariants}
+              initial="visible"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.05 }}
+              className="relative"
+            >
               <motion.p variants={itemVariants} className={`text-xs font-black tracking-[0.4em] uppercase mb-4 ${isSpidy ? 'text-red-500' : 'text-primary'}`}>
                 The Profile
               </motion.p>
@@ -194,16 +200,27 @@ const AboutSection = () => {
                 </div>
               </motion.div>
 
-              <motion.div variants={itemVariants} className="pt-16">
-                <motion.button
-                  variants={itemVariants}
-                  className={`px-10 py-5 rounded-full font-bold text-[10px] uppercase tracking-[0.3em] flex items-center gap-4 transition-all ${isSpidy
-                    ? 'bg-red-600 text-white hover:bg-red-700 shadow-[0_20px_40px_rgba(220,38,38,0.25)]'
-                    : 'bg-slate-900 text-white hover:bg-black shadow-xl'
-                    }`}>
-                  Secure Resume <Download size={16} />
-                </motion.button>
-              </motion.div>
+              <div className="pt-24 relative z-50">
+                <a
+                  href="/Resume.pdf"
+                  download="Resume.pdf"
+                  className="inline-block relative z-[60]"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`px-12 py-6 rounded-full font-black text-[13px] uppercase tracking-[0.4em] flex items-center gap-4 transition-all duration-300 shadow-2xl ${isSpidy
+                        ? 'bg-red-600 text-white hover:bg-red-700 shadow-red-600/30'
+                        : 'bg-slate-900 text-white hover:bg-black shadow-black/20'
+                      }`}
+                  >
+                    Secure Resume <Download size={20} strokeWidth={3} />
+                  </motion.div>
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>

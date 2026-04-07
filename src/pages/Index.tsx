@@ -16,7 +16,7 @@ import CinematicGallery from "@/components/CinematicGallery";
 // ─── Phase flow: "intro" → "skills" → "landing" ───────────────────────────────
 type Phase = "intro" | "skills" | "landing";
 
-const SKILLS_DURATION_MS = 12_000; // matches the scroll animation duration
+const SKILLS_DURATION_MS = 3800; // Snappy 3.8s intro before landing page
 
 const Index = () => {
   const [phase, setPhase] = useState<Phase>("intro");
