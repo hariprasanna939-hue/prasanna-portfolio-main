@@ -1,217 +1,534 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* ==========================================================================
+   Design Tokens — Apple Liquid Glass (Prasanna Hari Brand)
+   ========================================================================== */
+:root {
+  --bg: 245 247 251;            /* #F5F7FB Luminous Apple Canvas */
+  --surface: 255 255 255;        /* #FFFFFF Pure White */
+  --surface-muted: 240 244 250;  /* #F0F4FA Liquid Secondary */
+  --fg: 23 25 35;                /* #171923 Deep Charcoal Text */
+  --muted: 104 115 134;          /* #687386 Refined Slate */
+  --accent: 57 120 246;          /* #3978F6 Apple Sapphire Blue */
+  --accent-cool: 16 185 129;     /* #10B981 Soft Mint */
+  --line: 226 232 240;          /* #E2E8F0 Subtle Glass Edge */
+
+  --card-w: min(76vw, 340px);
+  --card-h: min(52svh, 440px);
+}
+
+@media (min-width: 1024px) {
   :root {
-    --background: 240 5% 96%;
-    --foreground: 0 0% 4%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 4%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 4%;
-
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 7%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 220 9% 94%;
-    --muted-foreground: 220 9% 42%;
-
-    --accent: 240 5% 96%;
-    --accent-foreground: 0 0% 4%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 220 13% 90%;
-    --input: 220 13% 90%;
-    --ring: 0 0% 0%;
-
-    --radius: 1.25rem;
-
-    --shadow-soft: 0 4px 40px -4px hsla(0, 0%, 0%, 0.06);
-    --shadow-card: 0 8px 60px -8px hsla(0, 0%, 0%, 0.08);
-    --shadow-lift: 0 16px 70px -10px hsla(0, 0%, 0%, 0.12);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 0 0% 4%;
-    --foreground: 240 5% 96%;
-    --card: 0 0% 7%;
-    --card-foreground: 240 5% 96%;
-    --popover: 0 0% 7%;
-    --popover-foreground: 240 5% 96%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 220 9% 60%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 240 5% 96%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 0% 100%;
+    --card-w: min(32vw, 440px);
+    --card-h: min(68svh, 560px);
   }
 }
 
+/* ==========================================================================
+   Base Layer & Atmospheric Lighting
+   ========================================================================== */
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    background-color: #F5F7FB;
+    color-scheme: light;
+    color: #171923;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", 'Inter', system-ui, sans-serif;
   }
 
   body {
-    @apply bg-[#f0f0f0] text-foreground antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    transition: background-color 0.5s ease;
+    background-color: #F5F7FB;
+    color: #171923;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(221, 235, 255, 0.45), transparent 45%),
+      radial-gradient(circle at 85% 25%, rgba(220, 216, 255, 0.35), transparent 40%),
+      radial-gradient(circle at 50% 60%, rgba(217, 245, 232, 0.3), transparent 50%),
+      radial-gradient(circle at 80% 85%, rgba(221, 235, 255, 0.4), transparent 45%),
+      linear-gradient(to right, rgba(23, 25, 35, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(23, 25, 35, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+    background-position: top center;
+    background-attachment: fixed;
   }
 
-  body.spidy-mode {
-    @apply bg-slate-950;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  ::selection {
+    background-color: #DDEBFF;
+    color: #1E40AF;
   }
 
-  body.spidy-mode .page-frame {
-    background: linear-gradient(to bottom, #020617, #0f172a, #000000);
-    @apply m-0 rounded-none shadow-none;
-    height: 100vh;
+  h1, h2, h3, h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.025em;
   }
 
-  .page-frame {
-    @apply bg-white m-0 rounded-none shadow-none transition-all duration-700 ease-in-out;
-    height: 100vh;
-    width: 100%;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+  /* Custom Apple-Inspired 8px Glass Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F5F7FB;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+    border: 2px solid #F5F7FB;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
   }
 
-  /* Remove scrollbar for Chrome, Safari and Opera */
-  .page-frame::-webkit-scrollbar {
-    display: none;
+  :focus-visible {
+    outline: 2px solid #3978F6;
+    outline-offset: 3px;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-    letter-spacing: -0.02em;
-    font-weight: 600;
+  img {
+    display: block;
+    max-width: 100%;
+    border-radius: 1rem;
   }
 }
 
-@layer utilities {
-  .container-luxury {
-    @apply mx-auto w-full max-w-[1200px] px-6;
+/* ==========================================================================
+   Utility States & Accessibility Skip Link
+   ========================================================================== */
+html.is-loading,
+html.menu-open {
+  overflow: hidden;
+}
+
+.skip-link {
+  position: fixed;
+  top: -4rem;
+  left: 1rem;
+  z-index: 9999;
+  background-color: #3978F6;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(57, 120, 246, 0.4);
+  transition: top 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ==========================================================================
+   Apple Liquid Glass Design System Components Layer
+   ========================================================================== */
+@layer components {
+  /* Section Separators and Ambient Glass Lighting */
+  main > section {
+    position: relative;
+    isolation: isolate;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 30%) 100%);
+  main > section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.65;
+    z-index: -1;
   }
 
+  #about::before,
+  #work::before {
+    background: radial-gradient(circle at top right, rgba(57, 120, 246, 0.05), transparent 65%);
+  }
+
+  #passion::before,
+  #drawing::before,
+  #sports::before {
+    background: radial-gradient(circle at bottom left, rgba(220, 216, 255, 0.3), transparent 60%);
+  }
+
+  #skills::before,
+  #journey::before,
+  #tools::before {
+    background: radial-gradient(circle at 10% 50%, rgba(221, 235, 255, 0.4), transparent 60%);
+  }
+
+  #case-studies::before,
+  #achievements::before {
+    background: radial-gradient(circle at 85% 20%, rgba(217, 245, 232, 0.3), transparent 60%);
+  }
+
+  /* Section Accent Bar */
+  main > section h2:not(.no-bar)::after {
+    content: "";
+    display: block;
+    width: 3.25rem;
+    height: 0.22rem;
+    background: linear-gradient(90deg, #3978F6 0%, #818CF8 100%);
+    margin-top: 1.25rem;
+    border-radius: 9999px;
+  }
+
+  /* --------------------------------------------------------------------------
+     Core Liquid Glass Classes
+     -------------------------------------------------------------------------- */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+      0 12px 36px -4px rgba(31, 38, 135, 0.06),
+      0 2px 8px -2px rgba(15, 23, 42, 0.03);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(20px) saturate(170%);
+    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+      0 8px 24px -2px rgba(15, 23, 42, 0.04),
+      0 2px 6px -1px rgba(15, 23, 42, 0.02);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.95);
+    box-shadow:
+      inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+      0 16px 40px -6px rgba(31, 38, 135, 0.09),
+      0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+      0 2px 8px rgba(0, 0, 0, 0.03);
+  }
+
+  /* Floating Apple Dock Navigation */
   .glass-nav {
-    backdrop-filter: saturate(180%) blur(20px);
-    background-color: hsla(240, 5%, 96%, 0.72);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95),
+      0 12px 36px -4px rgba(31, 38, 135, 0.07),
+      0 2px 6px 0 rgba(0, 0, 0, 0.02);
   }
 
-  .card-luxury {
-    @apply rounded-[var(--radius)] bg-card border border-border;
-    box-shadow: var(--shadow-soft);
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
+  /* Translucent Liquid Inputs */
+  .glass-input {
+    background: rgba(240, 244, 250, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+    transition: all 0.25s ease;
   }
 
-  .card-luxury:hover {
-    box-shadow: var(--shadow-lift);
-    transform: translateY(-4px);
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #3978F6;
+    box-shadow:
+      0 0 0 3px rgba(57, 120, 246, 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.9);
   }
 
-  .cta-banner-dark {
-    @apply rounded-[var(--radius)] bg-primary text-primary-foreground;
+  /* --------------------------------------------------------------------------
+     Button System — Liquid Glass Aesthetics
+     -------------------------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: 0.75rem 1.75rem;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  .btn-primary-luxury {
-    @apply inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground px-8 py-3.5 text-sm font-medium transition-all duration-300;
-  }
-
-  .btn-primary-luxury:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-card);
-  }
-
-  .btn-outline-luxury {
-    @apply inline-flex items-center justify-center rounded-full border border-foreground/20 text-foreground px-8 py-3.5 text-sm font-medium transition-all duration-300;
-  }
-
-  .btn-outline-luxury:hover {
-    @apply bg-foreground text-background;
-    transform: scale(1.05);
-  }
-
-  .profile-glow {
-    box-shadow: 0 0 80px 20px hsla(0, 0%, 0%, 0.06);
-  }
-
-  /* Spiderman Anti-Gravity Animations */
-  @keyframes anti-gravity-float {
-    0% {
-      transform: translateY(0) rotate(0deg);
-    }
-
-    50% {
-      transform: translateY(-25px) rotate(6deg);
-    }
-
-    100% {
-      transform: translateY(0) rotate(0deg);
+  @media (min-width: 640px) {
+    .btn {
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
   }
-
-  .animate-spidy-float {
-    animation: anti-gravity-float 6s ease-in-out infinite;
+  .btn:active {
+    transform: scale(0.97);
   }
 
-  .glow-red {
-    box-shadow: 0 0 40px rgba(220, 38, 38, 0.4);
+  /* Primary Apple Sapphire Button with Specular Sheen */
+  .btn-primary {
+    background: linear-gradient(180deg, #3978F6 0%, #2563EB 100%);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
+      0 4px 16px rgba(57, 120, 246, 0.35);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #4F8BFA 0%, #1D4ED8 100%);
+    transform: translateY(-1.5px);
+    box-shadow:
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.55),
+      0 8px 24px rgba(57, 120, 246, 0.45);
   }
 
-  /* Global Spidy Mode Section Visibility Overrides */
-  body.spidy-mode section {
-    @apply border-white/5;
+  /* Accent Button (Graphite Floating) */
+  .btn-accent {
+    background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.25),
+      0 4px 16px rgba(15, 23, 42, 0.25);
+  }
+  .btn-accent:hover {
+    background: #3978F6;
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1.5px);
+    box-shadow:
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.45),
+      0 8px 24px rgba(57, 120, 246, 0.35);
   }
 
-  body.spidy-mode h1,
-  body.spidy-mode h2,
-  body.spidy-mode h3 {
-    @apply text-white;
+  /* Translucent Liquid Ghost Button */
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #171923;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.9),
+      0 2px 8px rgba(15, 23, 42, 0.04);
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(255, 255, 255, 1);
+    color: #171923;
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 1.5px rgba(255, 255, 255, 1),
+      0 6px 16px rgba(31, 38, 135, 0.08);
   }
 
-  body.spidy-mode p,
-  body.spidy-mode span:not(.text-red-500) {
-    @apply text-slate-300;
+  /* Section Category Eyebrow */
+  .section-label {
+    color: #3978F6;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+  .section-label span {
+    display: inline-block;
+    height: 1.5px;
+    width: 2.25rem;
+    background-color: #3978F6;
+  }
+}
+
+/* ==========================================================================
+   Hero Atmospheric Lighting & Glass Portals
+   ========================================================================== */
+.hero-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 15%, rgba(221, 235, 255, 0.55), transparent 70%),
+    radial-gradient(circle at 10% 40%, rgba(220, 216, 255, 0.45), transparent 50%),
+    radial-gradient(circle at 90% 60%, rgba(217, 245, 232, 0.4), transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, #F5F7FB 100%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(23, 25, 35, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 25, 35, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 35%, transparent 100%);
+}
+
+.hero-portrait-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    0 20px 48px -12px rgba(31, 38, 135, 0.09),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-portrait-card:hover {
+  box-shadow:
+    inset 0 1px 2.5px 0 rgba(255, 255, 255, 1),
+    0 28px 60px -12px rgba(31, 38, 135, 0.14),
+    0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   Brand Wordmarks & Badges
+   ========================================================================== */
+.brand-logo {
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-logo--google {
+  background: conic-gradient(from 180deg, #4285f4, #ea4335, #fbbc05, #34a853, #4285f4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-logo--nvidia {
+  color: #76B900;
+}
+
+.brand-logo--credly {
+  color: #FF6B4A;
+}
+
+.brand-logo--ibm {
+  color: #0F62FE;
+  letter-spacing: 0.08em;
+  text-decoration: underline double;
+}
+
+.brand-logo--default {
+  color: #3978F6;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   3D Stack & VisionOS Glass Cards
+   ========================================================================== */
+.stack-stage {
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  width: var(--card-w);
+  height: var(--card-h);
+}
+
+.stack-stage.landscape {
+  --card-w: min(88vw, 440px);
+  --card-h: min(42svh, 320px);
+}
+
+@media (min-width: 1024px) {
+  .stack-stage.landscape {
+    --card-w: min(46vw, 680px);
+    --card-h: min(60svh, 460px);
+  }
+}
+
+/* ==========================================================================
+   Marquee Glass Track
+   ========================================================================== */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   Skills List Hover Focus Dimming
+   ========================================================================== */
+@media (hover: hover) {
+  .skill-list:hover .skill {
+    opacity: 0.35;
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  }
+  .skill-list .skill:hover {
+    opacity: 1;
+    color: #3978F6;
+    transform: translateX(6px);
+  }
+}
+
+/* ==========================================================================
+   Custom Glass Cursor
+   ========================================================================== */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor [data-cursor] {
+  cursor: none !important;
+}
+
+html.has-cursor input,
+html.has-cursor textarea,
+html.has-cursor select {
+  cursor: text !important;
+}
+
+/* ==========================================================================
+   Graceful Degradation Fallbacks for Browsers without Backdrop Filter
+   ========================================================================== */
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-panel,
+  .glass-card,
+  .glass-nav,
+  .hero-portrait-card {
+    background: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
+  }
+  .glass-pill,
+  .btn-ghost {
+    background: #FFFFFF !important;
+    border-color: #CBD5E1 !important;
+  }
+  .glass-input {
+    background: #F0F4FA !important;
+  }
+}
+
+/* ==========================================================================
+   Prefers Reduced Motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track {
+    animation: none !important;
   }
 }

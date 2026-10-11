@@ -1,150 +1,284 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Briefcase, Wrench, User, Plus, Sparkles } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import profileImg from "@/assets/hero-profile.png";
-import { useTheme } from "@/hooks/use-theme-mode";
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { profile, socials } from '../data/site';
+import { scrollToId } from '../lib/lenis';
+import { SocialIcon } from './Icons';
 
-const navItems = [
-  { icon: Briefcase, id: "work", label: "Work" },
-  { icon: Wrench, id: "services", label: "Services" },
-  { icon: User, id: "about", label: "About" },
+// Strict navigation array for About, Work, and Contact only
+const customNavLinks = [
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Work' },
+  { id: 'contact', label: 'Contact' },
 ];
 
-const Navbar = () => {
-  const navigate = useNavigate();
-  const { mode } = useTheme();
-  const isSpidy = mode === "spidy";
-  const [hoveredTab, setHoveredTab] = useState(null);
-  const [scrolled, setScrolled] = useState(false);
+const sectionToNav: Record<string, string> = {
+  about: 'about',
+  passion: 'about',
+  Event: 'about',
+  event: 'about',
+  Bootcamp: 'about',
+  bootcamp: 'about',
+  hackathon: 'about',
+  Hackathon: 'about',
+  'sih-25': 'about',
+  'israel-india-hackathon-2026': 'about',
+  'Israel–India Global Innovators Hackathon 2026': 'about',
+  drawing: 'about',
+  sports: 'about',
+  skills: 'skills',
+  work: 'work',
+  'case-studies': 'work',
+  journey: 'about',
+  tools: 'work',
+  achievements: 'about',
+  contact: 'contact',
+};
 
+export const Navbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeNav, setActiveNav] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Track scroll position for minor visual tweaks
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      if (y < 200) {
+        setActiveNav('');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  // IntersectionObserver for section activation
+  useEffect(() => {
+    const sectionIds = Object.keys(sectionToNav);
+    const elements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && window.scrollY >= 200) {
+            const mapped = sectionToNav[entry.target.id];
+            if (mapped) setActiveNav(mapped);
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Lock scroll and handle escape when mobile menu open
+  useEffect(() => {
+    if (menuOpen) {
+      document.documentElement.classList.add('menu-open');
+    } else {
+      document.documentElement.classList.remove('menu-open');
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.documentElement.classList.remove('menu-open');
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [menuOpen]);
+
+  const handleLinkClick = (id: string) => {
+    if (menuOpen) {
+      setMenuOpen(false);
+      setTimeout(() => scrollToId(id), 60);
+    } else {
+      scrollToId(id);
     }
   };
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-[100] flex justify-center px-4 pointer-events-none">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="relative flex items-center p-1.5 rounded-full pointer-events-auto"
+    <>
+      {/* Floating Unified Pill Navigation */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-[60] px-4 sm:px-6 md:px-10 transition-all duration-500 pointer-events-none ${
+          scrolled ? 'pt-4' : 'pt-6'
+        }`}
       >
-        {/* --- LIQUID GLASS BACKGROUND STACK --- */}
-        <div className="absolute inset-0 z-0 overflow-hidden rounded-full">
-          {/* Animated Refraction Blobs */}
-          <div className={`absolute -top-5 -left-5 w-20 h-20 rounded-full blur-2xl opacity-40 animate-liquid-flow ${isSpidy ? 'bg-red-600' : 'bg-blue-400'}`} />
-          <div className={`absolute -bottom-5 -right-5 w-20 h-20 rounded-full blur-2xl opacity-40 animate-liquid-flow delay-1000 ${isSpidy ? 'bg-slate-800' : 'bg-purple-400'}`} />
-
-          {/* The Main Glass Layer */}
-          <div className={`
-            absolute inset-0 backdrop-blur-[24px] saturate-[1.8] border transition-all duration-500 rounded-full
-            ${isSpidy
-              ? 'bg-red-950/20 border-red-500/30 shadow-[0_0_40px_rgba(220,38,38,0.15)]'
-              : 'bg-white/40 border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.05)]'
-            }
-          `} />
-        </div>
-
-        {/* --- NAV CONTENT --- */}
-        <div className="relative z-10 flex items-center gap-1 sm:gap-2 px-1">
-
-          {/* Profile Circle */}
+        {/* Unified Dark Pill Container */}
+        <div className="max-w-[850px] mx-auto pointer-events-auto relative flex items-center justify-between p-2 rounded-full bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+          
+          {/* Left: White Logo Circle & Name */}
           <button
-            onClick={() => navigate("/")}
-            className="group relative flex items-center justify-center p-1"
+            onClick={() => handleLinkClick('top')}
+            className="group flex items-center gap-3 focus-visible:outline-none transition-transform hover:scale-[1.02] z-20"
+            aria-label="Scroll to top"
           >
-            <div className={`
-              relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-full overflow-hidden border-2 transition-all duration-500
-              ${isSpidy ? 'border-red-500 shadow-[0_0_15px_rgba(220,38,38,0.5)]' : 'border-white/80 group-hover:border-primary'}
-            `}>
-              <img
-                src={profileImg}
-                alt="Prasanna"
-                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isSpidy ? 'grayscale-[0.2]' : ''}`}
-              />
+            <div className="flex items-center justify-center w-11 h-11 rounded-full bg-white text-black shadow-sm transition-transform group-hover:scale-105">
+              <span className="text-[15px] font-bold tracking-tight">
+                {profile.logo}
+              </span>
             </div>
+            {/* Added Name Here */}
+            <span className="text-[15px] font-semibold tracking-wide text-white hidden sm:block pr-2">
+              Prasanna Hari
+            </span>
           </button>
 
-          {/* Links with Liquid Hover Pill */}
-          <nav className="flex items-center relative py-1 md:px-2">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                onMouseEnter={() => setHoveredTab(item.id)}
-                onMouseLeave={() => setHoveredTab(null)}
-                className={`
-                  relative px-2 sm:px-4 py-2 rounded-full text-[9px] md:text-xs font-black uppercase tracking-[0.1em] md:tracking-[0.15em] transition-colors duration-300
-                  ${isSpidy
-                    ? (hoveredTab === item.id ? 'text-white' : 'text-white/40')
-                    : (hoveredTab === item.id ? 'text-slate-900' : 'text-slate-500')
-                  }
-                `}
-              >
-                <span className="relative z-20">{item.label}</span>
-
-                {/* Magnetic Hover Background */}
-                <AnimatePresence>
-                  {hoveredTab === item.id && (
+          {/* Center: Absolute Centered White Navigation Links */}
+          <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-2 z-10">
+            {customNavLinks.map((link) => {
+              const isActive = activeNav === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={() => handleLinkClick(link.id)}
+                  className={`relative px-5 py-2.5 rounded-full text-[14px] transition-all duration-300 outline-none ${
+                    isActive
+                      ? 'text-white font-semibold'
+                      : 'text-white/70 hover:text-white font-medium hover:bg-white/5'
+                  }`}
+                >
+                  {isActive && (
                     <motion.div
-                      layoutId="liquid-nav"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                      className={`absolute inset-0 z-10 rounded-full shadow-inner ${isSpidy ? 'bg-red-600/20 border border-red-500/30' : 'bg-black/5 border border-black/5'
-                        }`}
+                      layoutId="activeNavPill"
+                      className="absolute inset-0 rounded-full bg-white/10"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
-                </AnimatePresence>
-              </button>
-            ))}
+                  <span className="relative z-10">{link.label}</span>
+                </button>
+              );
+            })}
           </nav>
 
-          {/* CTA Button */}
-          <div className="ml-1 sm:ml-2 pl-1 sm:pl-2 border-l border-white/20">
+          {/* Right: White Actions Button & Mobile Toggle */}
+          <div className="flex items-center gap-2 z-20">
             <button
-              onClick={() => scrollTo("contact")}
-              className={`
-                relative flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-full font-black text-[9px] sm:text-[10px] uppercase tracking-widest overflow-hidden transition-all group
-                ${isSpidy
-                  ? 'bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-900/40'
-                  : 'bg-slate-900 text-white hover:bg-black shadow-lg'
-                }
-              `}
+              onClick={() => handleLinkClick('contact')}
+              className="hidden sm:inline-flex items-center justify-center px-7 py-3 rounded-full bg-white text-black text-[14px] font-semibold hover:bg-gray-200 transition-colors duration-300 shadow-sm"
             >
-              <span className="relative z-10">HIRE</span>
-              <Plus size={12} className="relative z-10 group-hover:rotate-90 transition-transform duration-500 hidden sm:block" />
+              Hire Me
+            </button>
 
-              {/* Glass Shine Effect */}
-              <motion.div
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] z-0"
-              />
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              className="lg:hidden w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all active:scale-95"
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Spidy "Energy Core" Underline */}
-        {isSpidy && (
-          <motion.div
-            layoutId="spidy-core"
-            className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1/3 h-[2px] bg-red-600 blur-[1px] shadow-[0_0_8px_#dc2626]"
-          />
+      {/* Dark Premium Mobile Glass Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <div className="fixed inset-0 z-[55] lg:hidden">
+            {/* Backdrop blur layer */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setMenuOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-xl"
+            />
+
+            {/* Floating Dark Glass Sheet */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-4 mt-24 mb-6 p-6 sm:p-8 rounded-[32px] bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-2xl flex flex-col justify-between max-h-[calc(100svh-7rem)] overflow-y-auto"
+            >
+              <div>
+                <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/10">
+                  <span className="text-xs uppercase font-mono tracking-widest font-bold text-white/50">
+                    Navigation
+                  </span>
+                  <span className="text-xs font-mono text-white/40">
+                    {customNavLinks.length} Sections
+                  </span>
+                </div>
+
+                <ul className="flex flex-col gap-2">
+                  {customNavLinks.map((link, idx) => (
+                    <motion.li
+                      key={link.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.35,
+                        delay: 0.04 * idx,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <button
+                        onClick={() => handleLinkClick(link.id)}
+                        className={`w-full text-left py-3 px-4 rounded-2xl transition-all flex items-center justify-between group ${
+                          activeNav === link.id
+                            ? 'bg-white/10 text-white font-semibold'
+                            : 'text-white/60 hover:bg-white/5 hover:text-white font-medium'
+                        }`}
+                      >
+                        <span className="text-xl sm:text-2xl tracking-tight">
+                          {link.label}
+                        </span>
+                        <ArrowUpRight
+                          size={18}
+                          className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-white"
+                        />
+                      </button>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-4 pt-8 mt-6 border-t border-white/10">
+                <button
+                  onClick={() => handleLinkClick('contact')}
+                  className="w-full py-4 text-center text-sm font-semibold text-black bg-white rounded-2xl hover:bg-gray-200 transition-colors shadow-lg"
+                >
+                  Hire Me · Start a Conversation
+                </button>
+
+                <div className="flex items-center justify-center gap-3">
+                  {socials.map((social) => (
+                    <a
+                      key={social.id}
+                      href={social.href}
+                      target={social.id === 'email' ? undefined : '_blank'}
+                      rel={social.id === 'email' ? undefined : 'noopener noreferrer'}
+                      className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all shadow-md"
+                      aria-label={social.label}
+                    >
+                      <SocialIcon id={social.id} className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
-      </motion.div>
-    </div>
+      </AnimatePresence>
+    </>
   );
 };
-
-export default Navbar;
