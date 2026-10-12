@@ -33,7 +33,7 @@ interface Card3DProps {
 const renderDescription = (text: string) => {
   if (!text.includes('\n')) {
     return (
-      <p className="text-base md:text-[1.05rem] text-slate-500 leading-relaxed font-normal mb-8">
+      <p className="text-[15px] md:text-base text-white/70 leading-relaxed font-normal mb-8">
         {text}
       </p>
     );
@@ -46,17 +46,18 @@ const renderDescription = (text: string) => {
       {sections.map((section, idx) => {
         const lines = section.split('\n').map((l) => l.trim()).filter(Boolean);
 
-        // 1. Headline callout (Soft, friendly badge)
+        // 1. Headline callout (Editorial status pill)
         if (lines.length > 0 && lines[0].startsWith('Headline:')) {
           const headlineText = lines[0].replace(/^Headline:\s*/i, '');
           const bodyLines = lines.slice(1);
           return (
             <div key={idx} className="space-y-3">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-2xl text-xs font-bold tracking-wide bg-indigo-50 text-indigo-600 border border-indigo-100/50 shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide bg-[#2A2A2A] text-[#FF5C35] border border-white/5 shadow-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35] animate-pulse" />
                 {headlineText}
               </div>
               {bodyLines.map((line, bIdx) => (
-                <p key={bIdx} className="text-[15px] md:text-base text-slate-600 leading-relaxed font-normal">
+                <p key={bIdx} className="text-[15px] md:text-base text-white/70 leading-relaxed font-normal">
                   {line}
                 </p>
               ))}
@@ -64,16 +65,16 @@ const renderDescription = (text: string) => {
           );
         }
 
-        // 2. Host / Location / Date metadata block (Modern, airy card)
+        // 2. Host / Location / Date metadata block (Dark surface card)
         if (lines.some((l) => l.startsWith('📍') || l.startsWith('📅'))) {
           return (
             <div
               key={idx}
-              className="p-4 rounded-3xl bg-white/60 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] space-y-2"
+              className="p-5 rounded-[24px] bg-[#111111] border border-white/5 shadow-2xl space-y-2.5"
             >
               {lines.map((line, lIdx) => (
-                <div key={lIdx} className="flex items-center gap-3 text-[13px] md:text-sm font-medium text-slate-700">
-                  <span className="opacity-80">{line}</span>
+                <div key={lIdx} className="flex items-center gap-3 text-[13px] md:text-sm font-medium text-white/80">
+                  <span>{line}</span>
                 </div>
               ))}
             </div>
@@ -88,7 +89,7 @@ const renderDescription = (text: string) => {
           return (
             <div
               key={idx}
-              className="p-5 rounded-3xl bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] space-y-3"
+              className="p-6 rounded-[24px] bg-[#111111] border border-white/5 shadow-2xl space-y-3.5"
             >
               {lines.map((line, lIdx) => {
                 if (line.toLowerCase().startsWith('members:') || line.toLowerCase().includes('members:')) {
@@ -97,16 +98,16 @@ const renderDescription = (text: string) => {
                   const names = parts.slice(1).join(':').split(',').map((n) => n.trim()).filter(Boolean);
                   return (
                     <div key={lIdx} className="pt-2">
-                      <p className="text-[11px] uppercase tracking-widest font-bold text-slate-400 mb-2.5">
+                      <p className="text-[11px] uppercase tracking-widest font-mono font-bold text-white/50 mb-3">
                         {label}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {names.map((name, nIdx) => (
                           <span
                             key={nIdx}
-                            className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-slate-100/80 text-slate-700 border border-slate-200/50 shadow-sm transition-transform hover:scale-105 cursor-default"
+                            className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-[#2A2A2A] text-white/80 border border-white/5 transition-transform hover:scale-105 cursor-default"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mr-2" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35] mr-2" />
                             {name}
                           </span>
                         ))}
@@ -115,8 +116,8 @@ const renderDescription = (text: string) => {
                   );
                 }
                 return (
-                  <p key={lIdx} className="text-[13px] md:text-sm font-medium text-slate-600">
-                    <span className="font-bold text-slate-900">{line.split(':')[0]}:</span>{' '}
+                  <p key={lIdx} className="text-[13px] md:text-sm font-medium text-white/70">
+                    <span className="font-bold text-white">{line.split(':')[0]}:</span>{' '}
                     {line.split(':').slice(1).join(':').trim()}
                   </p>
                 );
@@ -132,11 +133,12 @@ const renderDescription = (text: string) => {
           const otherLines = lines.filter((l) => l !== teamLine);
           return (
             <div key={idx} className="space-y-3">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-2xl text-xs font-bold tracking-wide bg-sky-50 text-sky-600 border border-sky-100/50 shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide bg-[#2A2A2A] text-[#FF5C35] border border-white/5 shadow-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35]" />
                 {cleanTeamName}
               </div>
               {otherLines.map((line, oIdx) => (
-                <p key={oIdx} className="text-[15px] md:text-base text-slate-600 leading-relaxed font-normal">
+                <p key={oIdx} className="text-[15px] md:text-base text-white/70 leading-relaxed font-normal">
                   {line.replace(/\*\*/g, '')}
                 </p>
               ))}
@@ -151,18 +153,18 @@ const renderDescription = (text: string) => {
           return (
             <div
               key={idx}
-              className="p-5 rounded-3xl bg-white/60 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+              className="p-6 rounded-[24px] bg-[#111111] border border-white/5 shadow-2xl"
             >
-              <p className="text-[11px] uppercase tracking-widest font-bold text-slate-400 mb-3">
+              <p className="text-[11px] uppercase tracking-widest font-mono font-bold text-white/50 mb-3">
                 {title}
               </p>
               <div className="flex flex-wrap gap-2">
                 {members.map((member, mIdx) => (
                   <span
                     key={mIdx}
-                    className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-white text-slate-700 border border-slate-100 shadow-sm"
+                    className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-[#2A2A2A] text-white/80 border border-white/5"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mr-2" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35] mr-2" />
                     {member}
                   </span>
                 ))}
@@ -182,9 +184,9 @@ const renderDescription = (text: string) => {
               : lines[0];
           const bulletLines = heading ? lines.slice(1) : lines;
           return (
-            <div key={idx} className="space-y-3 bg-slate-50/50 p-5 rounded-3xl border border-slate-100/50">
+            <div key={idx} className="space-y-3 bg-[#111111] p-6 rounded-[24px] border border-white/5 shadow-2xl">
               {heading && (
-                <h4 className="text-[15px] md:text-base font-bold text-slate-800">
+                <h4 className="text-[15px] md:text-base font-bold text-white">
                   {heading.replace(/\*\*/g, '')}
                 </h4>
               )}
@@ -194,9 +196,9 @@ const renderDescription = (text: string) => {
                   return (
                     <div
                       key={bIdx}
-                      className="flex items-start gap-3 text-[14px] md:text-[15px] text-slate-600 leading-relaxed"
+                      className="flex items-start gap-3 text-[14px] md:text-[15px] text-white/70 leading-relaxed"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0 opacity-80" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35] mt-2 shrink-0 opacity-80" />
                       <span>{clean.replace(/\*\*/g, '')}</span>
                     </div>
                   );
@@ -217,7 +219,7 @@ const renderDescription = (text: string) => {
           const rest = lines.slice(1);
           return (
             <div key={idx} className="space-y-2">
-              <h4 className="text-[15px] md:text-base font-bold text-slate-800 flex items-center gap-2">
+              <h4 className="text-[15px] md:text-base font-bold text-white flex items-center gap-2">
                 {heading}
               </h4>
               <div className="space-y-1.5 pl-1">
@@ -229,15 +231,15 @@ const renderDescription = (text: string) => {
                   return isBullet ? (
                     <div
                       key={rIdx}
-                      className="flex items-start gap-2.5 text-[14px] md:text-[15px] text-slate-600 leading-relaxed"
+                      className="flex items-start gap-2.5 text-[14px] md:text-[15px] text-white/70 leading-relaxed"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0 opacity-80" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C35] mt-2 shrink-0 opacity-80" />
                       <span>{line}</span>
                     </div>
                   ) : (
                     <p
                       key={rIdx}
-                      className="text-[14px] md:text-[15px] text-slate-600 leading-relaxed"
+                      className="text-[14px] md:text-[15px] text-white/70 leading-relaxed"
                     >
                       {line}
                     </p>
@@ -249,11 +251,11 @@ const renderDescription = (text: string) => {
         }
 
         // 8. Clean paragraph
-        const cleanedText = section.replace(/\*\*(.*?)\*\*/g, '\$1');
+        const cleanedText = section.replace(/\*\*(.*?)\*\*/g, '$1');
         return (
           <p
             key={idx}
-            className="text-[15px] md:text-[1.05rem] text-slate-500 leading-relaxed font-normal"
+            className="text-[15px] md:text-base text-white/70 leading-relaxed font-normal"
           >
             {cleanedText}
           </p>
@@ -264,16 +266,15 @@ const renderDescription = (text: string) => {
 };
 
 const Card3D: React.FC<Card3DProps> = ({ item, index, total, pos, onSelect, noBorder = false }) => {
-  // Fixed broken template literal math
   const y = useTransform(pos, (p) => `${(index - p) * 50}%`);
   
   const z = useTransform(pos, (p) => {
     const o = Math.abs(index - p);
-    return -Math.min(o, 3) * 180; // Slightly softer depth
+    return -Math.min(o, 3) * 180;
   });
   
   const rotateX = useTransform(pos, (p) => {
-    const raw = -(index - p) * 20; // Gentler rotation
+    const raw = -(index - p) * 20;
     return Math.max(-35, Math.min(35, raw));
   });
   
@@ -291,7 +292,7 @@ const Card3D: React.FC<Card3DProps> = ({ item, index, total, pos, onSelect, noBo
   
   const shade = useTransform(pos, (p) => {
     const o = Math.abs(index - p);
-    return Math.min(o, 1.6) * 0.25; // Brighter, less harsh shadows
+    return Math.min(o, 1.6) * 0.4;
   });
   
   const zIndex = useTransform(pos, (p) => {
@@ -325,21 +326,17 @@ const Card3D: React.FC<Card3DProps> = ({ item, index, total, pos, onSelect, noBo
         transformStyle: 'preserve-3d',
       }}
       onClick={() => onSelect(index)}
-      className={`rounded-[32px] group transition-all duration-500 ease-out ${
-        noBorder 
-          ? 'border border-white/40 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)]' 
-          : 'bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)]'
-      } overflow-hidden cursor-pointer select-none`}
+      className="rounded-[32px] group transition-all duration-500 ease-out bg-[#111111] border border-white/10 shadow-2xl overflow-hidden cursor-pointer select-none"
     >
-      {/* Blurred Backdrop - Gives the card an inner glow of its own image */}
+      {/* Blurred Backdrop */}
       <img
         src={item.src}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover blur-3xl scale-150 opacity-30 pointer-events-none transition-opacity group-hover:opacity-40"
+        className="absolute inset-0 w-full h-full object-cover blur-3xl scale-150 opacity-20 pointer-events-none transition-opacity group-hover:opacity-30"
       />
 
-      {/* Main Sharp Image */}
+      {/* Main Image */}
       <div
         className={`relative z-10 w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-[1.02] ${
           noBorder ? 'p-0' : 'p-6 md:p-8'
@@ -351,38 +348,28 @@ const Card3D: React.FC<Card3DProps> = ({ item, index, total, pos, onSelect, noBo
           className={`w-full h-full ${
             noBorder
               ? 'object-cover rounded-[32px]'
-              : 'object-contain drop-shadow-xl rounded-[24px]'
+              : 'object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] rounded-[24px]'
           }`}
         />
       </div>
 
-      {/* Soft Light Shade Overlay */}
+      {/* Dark Depth Shade Overlay */}
       <motion.div
         style={{ opacity: shade }}
-        className="absolute inset-0 bg-gradient-to-t from-slate-200/50 to-white/10 pointer-events-none z-20 mix-blend-multiply"
+        className="absolute inset-0 bg-black/60 pointer-events-none z-20"
       />
 
-      {/* Bottom Gradient Liquid Glass Caption */}
+      {/* Bottom Gradient Caption */}
       <div
-        className={`absolute inset-x-0 bottom-0 z-30 p-4 sm:p-6 flex items-end justify-between transition-all duration-500 ${
-          noBorder
-            ? 'bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent pt-12'
-            : 'bg-gradient-to-t from-white/90 via-white/70 to-transparent pt-12'
-        }`}
+        className="absolute inset-x-0 bottom-0 z-30 p-4 sm:p-6 flex items-end justify-between transition-all duration-500 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent pt-14"
       >
         <span
-          className={`px-3 py-1 rounded-full text-[11px] font-mono font-bold tracking-wide shadow-sm ${
-            noBorder 
-              ? 'bg-white/20 text-white backdrop-blur-md border border-white/20' 
-              : 'bg-white/80 text-indigo-600 backdrop-blur-md border border-white'
-          }`}
+          className="px-3 py-1 rounded-full text-[11px] font-mono font-bold tracking-wide shadow-sm bg-[#2A2A2A] text-[#FF5C35] border border-white/10"
         >
           {formattedIndex} / {formattedTotal}
         </span>
         <span
-          className={`text-[12px] md:text-[13px] truncate max-w-[70%] font-semibold tracking-wide ${
-            noBorder ? 'text-white shadow-black/10 drop-shadow-md' : 'text-slate-800'
-          }`}
+          className="text-[12px] md:text-[13px] truncate max-w-[70%] font-semibold tracking-wide text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]"
         >
           {item.alt}
         </span>
@@ -405,7 +392,6 @@ export const Stack3D: React.FC<Stack3DProps> = ({
   const isReduced = useReducedMotion();
 
   const totalScreens = (items.length - 1) * 0.5 + 1;
-  // Fixed broken template literal math
   const sectionHeight = `${totalScreens * 100}svh`;
 
   const { scrollYProgress } = useScroll({
@@ -440,9 +426,9 @@ export const Stack3D: React.FC<Stack3DProps> = ({
 
   if (isReduced) {
     return (
-      <section id={id} className="py-24 px-6 md:px-12 max-w-[1600px] mx-auto bg-[#F8FAFC]">
+      <section id={id} className="py-24 px-6 md:px-12 max-w-[1440px] mx-auto bg-[#1A1A1A]">
         <SectionLabel>{label}</SectionLabel>
-        <h2 className="text-[clamp(2.4rem,6vw,5rem)] font-extrabold tracking-tight text-slate-900 mb-6">
+        <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.15] tracking-tight text-white mb-6">
           {title}
         </h2>
         {renderDescription(description)}
@@ -450,19 +436,17 @@ export const Stack3D: React.FC<Stack3DProps> = ({
           {items.map((item, i) => (
             <div
               key={i}
-              className={`rounded-[24px] overflow-hidden bg-white group hover:-translate-y-1 transition-transform duration-300 ${
-                noBorder ? 'border-0 p-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)]' : 'border border-slate-100 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)]'
-              }`}
+              className="rounded-[24px] overflow-hidden bg-[#111111] border border-white/5 shadow-2xl p-5 group hover:-translate-y-1 transition-transform duration-300"
             >
               <img
                 src={item.src}
                 alt={item.alt}
                 className={`w-full aspect-[4/3] ${
-                  noBorder ? 'object-cover rounded-[24px]' : 'object-contain rounded-[16px]'
+                  noBorder ? 'object-cover rounded-[20px]' : 'object-contain rounded-[16px]'
                 }`}
               />
               <div className="pt-4 pb-1 px-2">
-                <p className="text-[13px] font-medium text-slate-500">{item.alt}</p>
+                <p className="text-[13px] font-medium text-white/70">{item.alt}</p>
               </div>
             </div>
           ))}
@@ -476,17 +460,17 @@ export const Stack3D: React.FC<Stack3DProps> = ({
       id={id}
       ref={containerRef}
       style={{ height: sectionHeight }}
-      className="relative bg-[#F8FAFC] selection:bg-indigo-100 selection:text-indigo-900"
+      className="relative bg-[#1A1A1A] text-white selection:bg-[#FF5C35]/30 selection:text-white"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden flex flex-col justify-center px-6 md:px-12 pt-28 lg:pt-24 pb-6">
-        <div className="max-w-[1600px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.1fr_auto] items-center gap-12 lg:gap-20">
+        <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-[1.1fr_auto] items-center gap-12 lg:gap-20">
           
           {/* Header & Pagination Column */}
           <div className="flex flex-col items-start max-w-xl relative z-20">
             <div className="mb-2">
               <SectionLabel>{label}</SectionLabel>
             </div>
-            <h2 className="text-[clamp(2.2rem,4vw,4rem)] font-extrabold tracking-tight text-slate-900 leading-[1.05] mb-6 drop-shadow-sm">
+            <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[1.15] tracking-tight text-white mb-6 drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
               {title}
             </h2>
             
@@ -495,8 +479,8 @@ export const Stack3D: React.FC<Stack3DProps> = ({
             </div>
 
             {/* Pagination & Counter (Desktop >=md) */}
-            <div className="hidden md:flex items-center gap-6 pt-6 border-t border-slate-200/60 w-full mt-4">
-              <span className="text-[13px] font-mono font-bold tracking-widest text-slate-400">
+            <div className="hidden md:flex items-center gap-6 pt-6 border-t border-white/10 w-full mt-4">
+              <span className="text-[13px] font-mono font-bold tracking-widest text-white/50">
                 {String(active + 1).padStart(2, '0')} /{' '}
                 {String(items.length).padStart(2, '0')}
               </span>
@@ -509,8 +493,8 @@ export const Stack3D: React.FC<Stack3DProps> = ({
                     aria-label={`Jump to card ${i + 1}`}
                     className={`h-2 rounded-full transition-all duration-500 ease-out ${
                       active === i
-                        ? 'w-10 bg-indigo-500 shadow-[0_0_12px_rgba(99,102,241,0.5)]'
-                        : 'w-2.5 bg-slate-200 hover:bg-slate-300 hover:scale-110'
+                        ? 'w-10 bg-[#FF5C35] shadow-[0_0_12px_rgba(255,92,53,0.6)]'
+                        : 'w-2.5 bg-white/20 hover:bg-white/40 hover:scale-110'
                     }`}
                   />
                 ))}

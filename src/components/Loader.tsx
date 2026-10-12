@@ -53,24 +53,23 @@ export const Loader: React.FC<LoaderProps> = ({ progress, ready, onFinish }) => 
     <motion.div
       role="status"
       aria-live="polite"
-      className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-[#F5F7FB] text-fg select-none px-6 relative overflow-hidden"
+      className="fixed inset-0 z-[300] flex flex-col items-center justify-center bg-[#1A1A1A] text-white select-none px-6 relative overflow-hidden"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.9, ease: EASE }}
     >
-      {/* Ambient background light orbs */}
+      {/* Ambient background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-[#DDEBFF]/60 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-[#DCD8FF]/50 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-[#FF5C35]/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 glass-panel p-8 sm:p-12 rounded-3xl max-w-xl w-full flex flex-col items-center text-center shadow-glass-lg border-white/90">
+      <div className="relative z-10 p-8 sm:p-12 rounded-[32px] bg-[#111111] border border-white/5 max-w-xl w-full flex flex-col items-center text-center shadow-2xl">
         {/* Name */}
         <motion.h1
           initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-          className="text-[clamp(1.9rem,6vw,3.8rem)] font-bold tracking-tight text-fg leading-none"
+          className="text-[clamp(1.9rem,6vw,3.8rem)] font-bold tracking-tight text-white leading-none"
         >
           {profile.name}
         </motion.h1>
@@ -80,9 +79,9 @@ export const Loader: React.FC<LoaderProps> = ({ progress, ready, onFinish }) => 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.35 }}
-          className="mt-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.4em] text-accent font-mono"
+          className="mt-3 text-[11px] sm:text-xs font-bold uppercase tracking-[0.4em] text-[#FF5C35] font-mono"
         >
-          LIQUID GLASS PORTFOLIO
+          EDITORIAL PORTFOLIO
         </motion.span>
 
         {/* Role */}
@@ -90,7 +89,7 @@ export const Loader: React.FC<LoaderProps> = ({ progress, ready, onFinish }) => 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.6 }}
-          className="mt-3 text-xs sm:text-sm text-muted font-medium max-w-md"
+          className="mt-3 text-xs sm:text-sm text-white/50 font-medium max-w-md"
         >
           {profile.role}
         </motion.p>
@@ -102,16 +101,16 @@ export const Loader: React.FC<LoaderProps> = ({ progress, ready, onFinish }) => 
           transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
           className="mt-10 flex flex-col items-center gap-3 w-full"
         >
-          <div className="w-48 sm:w-64 h-[3px] bg-slate-200/80 rounded-full overflow-hidden relative shadow-inner">
+          <div className="w-48 sm:w-64 h-[3px] bg-[#2A2A2A] rounded-full overflow-hidden relative shadow-inner">
             <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#3978F6] to-[#60A5FA] shadow-[0_0_8px_rgba(57,120,246,0.5)] transition-transform duration-75 ease-out origin-left"
+              className="absolute inset-y-0 left-0 bg-[#FF5C35] shadow-[0_0_10px_rgba(255,92,53,0.8)] transition-transform duration-75 ease-out origin-left"
               style={{
                 width: '100%',
                 transform: `scaleX(${shown / 100})`,
               }}
             />
           </div>
-          <span className="font-mono text-xs text-muted font-semibold tabular-nums">
+          <span className="font-mono text-xs text-white/50 font-semibold tabular-nums">
             {shown}%
           </span>
         </motion.div>

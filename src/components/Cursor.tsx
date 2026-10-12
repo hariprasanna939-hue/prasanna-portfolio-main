@@ -103,10 +103,10 @@ export const Cursor: React.FC = () => {
         isHidden
           ? 'opacity-0 w-0 h-0'
           : isViewOrExplore
-          ? 'w-[84px] h-[84px] glass-panel text-accent shadow-glass-lg font-mono border-white/95 backdrop-blur-md'
+          ? 'w-[84px] h-[84px] bg-[#111111]/90 text-[#FF5C35] font-mono border border-white/10 backdrop-blur-md shadow-2xl'
           : isLink
-          ? 'w-[42px] h-[42px] border border-accent/40 bg-accent/10 backdrop-blur-xs shadow-xs'
-          : 'w-[7px] h-[7px] bg-accent rounded-full shadow-[0_0_8px_rgba(57,120,246,0.6)]'
+          ? 'w-[42px] h-[42px] border border-[#FF5C35]/50 bg-[#FF5C35]/15 backdrop-blur-xs shadow-[0_0_12px_rgba(255,92,53,0.2)]'
+          : 'w-[7px] h-[7px] bg-[#FF5C35] rounded-full shadow-[0_0_8px_rgba(255,92,53,0.8)]'
       }`}
     >
       {isViewOrExplore && (

@@ -14,7 +14,7 @@ export const profile = {
   goalRole: "Lead Product Architect / Systems Engineer",
   mission:
     "Architecting intelligent digital interfaces and robust full-stack platforms that turn intricate technical complexity into fluid, tactile elegance.",
-  heroEyebrow: "Available for select architectural roles · 2026",
+  heroEyebrow: "Available for select architectural roles",
   heroHeadline: "Engineering systems. Elevating human experience.",
   heroSub:
     "Bridging the chasm between deep AI algorithms, resilient distributed backends, and cinematic, high-performance web applications.",
@@ -61,13 +61,10 @@ export const socials = [
   },
 ] as const;
 
+// Streamlined navigation specifically requested for the new editorial header
 export const navLinks = [
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
   { id: "work", label: "Work" },
-  { id: "case-studies", label: "Case Studies" },
-  { id: "journey", label: "Journey" },
-  { id: "achievements", label: "Achievements" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -188,9 +185,9 @@ I was also deeply inspired by C.K. Kumaravel, the co-founder of Naturals. His st
 A huge shoutout to Dakshin and the entire FounderX team for conducting such a seamless and high-value event. From the fireside chats to the networking sessions, it was a reminder that the Indian startup ecosystem is only getting stronger.
 
 Key Takeaways:
-• Simplicity is Ultimate Sophistication: Focus on what truly matters to your product and your life.
-• Resilience wins: As C.K. Kumaravel showed, setbacks are just setups for a bigger comeback.
-• Community is Everything: Surrounding yourself with fellow founders is the fastest way to grow.
+- Simplicity is Ultimate Sophistication: Focus on what truly matters to your product and your life.
+- Resilience wins: As C.K. Kumaravel showed, setbacks are just setups for a bigger comeback.
+- Community is Everything: Surrounding yourself with fellow founders is the fastest way to grow.
 
 Ready to take these lessons into the rest of 2026! 📈`;
 
@@ -226,9 +223,9 @@ Coming back for the second year felt completely different. Last time, I was main
 
 Over these 5 days, I got to:
 ✨ Think deeper about real-world problems
-* Work on ideas with a clearer direction
-* Understand how to shape a business model
-* Improve how I present and pitch ideas
+- Work on ideas with a clearer direction
+- Understand how to shape a business model
+- Improve how I present and pitch ideas
 
 One of the best moments was visiting the Atal Incubation Centre (PEC Foundation), where we interacted with startups and saw how ideas are actually built in the real world.
 
@@ -236,7 +233,7 @@ Honestly, this experience wasn’t just about learning — it made me realize ho
 
 👥 Team: AmiesStack
 Leader: Padmesh M.
-Members: prasanna Hari, SUBBURAJ J, Anaga Ravindraprasad, Nithya
+Members: Prasanna Hari, SUBBURAJ J, Anaga Ravindraprasad, Nithya
 Mentor: Mr P Vidhya Devi
 
 Really thankful for this opportunity and excited to take these learnings forward into real projects 🚀`;

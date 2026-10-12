@@ -16,12 +16,13 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="work" className="py-28 md:py-36 px-6 md:px-12 bg-bg relative">
-      <div className="max-w-[1600px] mx-auto">
+    <section id="work" className="py-28 md:py-36 px-6 md:px-12 bg-[#1A1A1A] relative font-sans overflow-hidden">
+      <div className="max-w-[1440px] mx-auto">
         <SectionLabel>Selected Work</SectionLabel>
+        
         <MaskText
           text="Featured projects"
-          className="text-[clamp(2.4rem,6vw,5.5rem)] font-bold text-fg leading-none mb-20 md:mb-28"
+          className="text-[clamp(2.4rem,6vw,5.5rem)] font-bold text-white leading-none mb-20 md:mb-28 tracking-tight"
         />
 
         <div className="flex flex-col">
@@ -35,9 +36,9 @@ export const Projects: React.FC = () => {
                 y={30}
                 className="mb-16 md:mb-24 last:mb-12"
               >
-                <article className="p-6 sm:p-10 lg:p-12 rounded-3xl glass-panel border border-white/95 shadow-glass-lg relative overflow-hidden group">
-                  {/* Atmospheric background light mesh inside project card */}
-                  <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#DDEBFF]/35 rounded-full blur-3xl pointer-events-none group-hover:bg-[#DCD8FF]/35 transition-colors duration-700" />
+                <article className="p-6 sm:p-10 lg:p-12 rounded-[32px] bg-[#111111] border border-white/5 shadow-2xl relative overflow-hidden group">
+                  {/* Atmospheric orange glow inside project card */}
+                  <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#FF5C35]/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#FF5C35]/20 transition-colors duration-700" />
 
                   <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     {/* Visual Column (7 Cols, Alternates Order on Desktop) */}
@@ -53,16 +54,16 @@ export const Projects: React.FC = () => {
                           rel="noopener noreferrer"
                           data-cursor="view"
                           aria-label={`View ${project.title} on GitHub`}
-                          className="block relative aspect-[4/3] w-full overflow-hidden rounded-2xl glass-card border border-white/90 shadow-glass group/visual"
+                          className="block relative aspect-[4/3] w-full overflow-hidden rounded-[24px] bg-[#1A1A1A] border border-white/5 shadow-xl group/visual"
                         >
                           {/* 01 / 04 Number Pill */}
-                          <div className="absolute top-4 left-4 z-20 px-3.5 py-1.5 rounded-full glass-pill border border-white/95 text-xs font-mono font-bold text-accent shadow-xs">
+                          <div className="absolute top-4 left-4 z-20 px-3.5 py-1.5 rounded-full bg-[#2A2A2A] border border-white/5 text-xs font-mono font-bold text-white/80 shadow-md">
                             0{project.index} / 0{projects.length}
                           </div>
 
                           {/* Status Pill in Visual */}
-                          <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full glass-pill border border-white/95 text-[11px] font-semibold text-emerald-700 flex items-center gap-1.5 shadow-xs">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <div className="absolute top-4 right-4 z-20 px-3.5 py-1.5 rounded-full bg-[#2A2A2A] border border-white/5 text-[11px] font-medium text-white/80 flex items-center gap-2 shadow-md">
+                            <span className="w-2 h-2 rounded-full bg-[#FF5C35] animate-pulse" />
                             <span>{project.status}</span>
                           </div>
 
@@ -75,13 +76,13 @@ export const Projects: React.FC = () => {
                               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/visual:scale-105"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center p-8 bg-slate-50/50">
+                            <div className="w-full h-full flex items-center justify-center p-8 bg-[#151515]">
                               <Wireframe kind={project.wire} />
                             </div>
                           )}
 
-                          {/* Soft Specular Inner Border */}
-                          <div className="absolute inset-0 pointer-events-none rounded-2xl ring-1 ring-inset ring-white/60" />
+                          {/* Soft Inner Border */}
+                          <div className="absolute inset-0 pointer-events-none rounded-[24px] ring-1 ring-inset ring-white/5" />
                         </a>
                       </Tilt3D>
                     </div>
@@ -93,41 +94,41 @@ export const Projects: React.FC = () => {
                       }`}
                     >
                       {/* Category Pill */}
-                      <div className="inline-flex items-center px-3.5 py-1 rounded-full glass-pill border border-white/90 text-xs font-mono font-bold uppercase tracking-wider text-accent mb-4 shadow-xs">
+                      <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#2A2A2A] border border-white/5 text-[11px] font-mono font-bold uppercase tracking-widest text-[#FF5C35] mb-4 shadow-sm">
                         {project.category}
                       </div>
 
-                      <h3 className="text-[clamp(1.85rem,3.8vw,3rem)] font-bold text-fg tracking-tight leading-tight mb-4 transition-transform duration-300 group-hover:translate-x-1">
+                      <h3 className="text-[clamp(1.85rem,3.8vw,3rem)] font-bold text-white tracking-tight leading-tight mb-4 transition-transform duration-300 group-hover:translate-x-1">
                         {project.title}
                       </h3>
 
-                      <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal mb-6">
+                      <p className="text-base sm:text-lg text-white/70 leading-relaxed font-normal mb-6">
                         {project.summary}
                       </p>
 
-                      {/* Metadata Table in Translucent Glass */}
-                      <dl className="w-full p-4 sm:p-5 rounded-2xl glass-card border border-white/90 shadow-xs divide-y divide-line/60 mb-6 text-xs">
-                        <div className="py-2 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
-                          <dt className="text-muted uppercase tracking-wider font-semibold font-mono">
+                      {/* Metadata Table in Dark Card */}
+                      <dl className="w-full p-5 rounded-[20px] bg-[#1A1A1A] border border-white/5 shadow-inner divide-y divide-white/5 mb-6 text-xs">
+                        <div className="py-2.5 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
+                          <dt className="text-white/40 uppercase tracking-widest font-bold font-mono">
                             Type
                           </dt>
-                          <dd className="text-fg font-medium">{project.type}</dd>
+                          <dd className="text-white font-medium">{project.type}</dd>
                         </div>
 
-                        <div className="py-2 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
-                          <dt className="text-muted uppercase tracking-wider font-semibold font-mono">
+                        <div className="py-2.5 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
+                          <dt className="text-white/40 uppercase tracking-widest font-bold font-mono">
                             Role · Team
                           </dt>
-                          <dd className="text-fg font-medium">
+                          <dd className="text-white font-medium">
                             {project.role} · {project.team}
                           </dd>
                         </div>
 
-                        <div className="py-2 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
-                          <dt className="text-muted uppercase tracking-wider font-semibold font-mono">
+                        <div className="py-2.5 grid grid-cols-[6.5rem_1fr] md:grid-cols-[8rem_1fr] items-baseline">
+                          <dt className="text-white/40 uppercase tracking-widest font-bold font-mono">
                             Duration
                           </dt>
-                          <dd className="text-fg font-medium">
+                          <dd className="text-white font-medium">
                             {project.duration}
                           </dd>
                         </div>
@@ -139,7 +140,7 @@ export const Projects: React.FC = () => {
                           {project.tech.map((t) => (
                             <span
                               key={t}
-                              className="px-3 py-1 rounded-lg glass-pill text-xs font-mono font-medium text-slate-700 border border-white/90 shadow-xs"
+                              className="px-3.5 py-1.5 rounded-full bg-[#2A2A2A] border border-white/5 text-xs font-mono font-medium text-white/80"
                             >
                               {t}
                             </span>
@@ -147,18 +148,22 @@ export const Projects: React.FC = () => {
                         </div>
                       )}
 
-                      {/* Action Button */}
+                      {/* Primary CTA Button matching design system */}
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-ghost gap-2 text-xs group/btn shadow-xs hover:border-accent hover:text-accent hover:shadow-glass"
+                        className="group/btn bg-[#FF5C35] hover:bg-[#ff7251] text-white rounded-full flex items-center p-1.5 pr-6 gap-4 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_8px_24px_rgba(255,92,53,0.2)]"
                       >
-                        <GithubIcon className="w-4 h-4" />
-                        <span>View on GitHub</span>
+                        <div className="w-9 h-9 bg-white rounded-full flex justify-center items-center text-[#FF5C35] group-hover/btn:scale-95 transition-transform duration-300">
+                          <GithubIcon className="w-4 h-4" />
+                        </div>
+                        <span className="font-medium text-sm tracking-wide">
+                          View on GitHub
+                        </span>
                         <ArrowUpRight
-                          size={15}
-                          className="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
+                          size={16}
+                          className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 text-white/80"
                         />
                       </a>
                     </div>
@@ -169,17 +174,17 @@ export const Projects: React.FC = () => {
           })}
         </div>
 
-        {/* Footer Link in Glass Card */}
+        {/* Footer Link in Dark Panel */}
         <div className="pt-8 text-center">
-          <div className="inline-block p-4 sm:p-6 rounded-2xl glass-card border border-white/90 shadow-glass">
+          <div className="inline-block p-6 sm:p-8 rounded-[24px] bg-[#111111] border border-white/5 shadow-2xl">
             <a
               href="https://github.com/hariprasanna939-hue"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-slate-700 hover:text-accent transition-colors underline underline-offset-8 inline-flex items-center gap-2"
+              className="text-sm font-semibold text-white/80 hover:text-white transition-colors underline underline-offset-8 inline-flex items-center gap-2"
             >
               <span>Explore all open repositories on GitHub · {profile.name}</span>
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={16} className="text-[#FF5C35]" />
             </a>
           </div>
         </div>

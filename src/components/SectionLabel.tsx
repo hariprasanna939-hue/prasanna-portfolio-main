@@ -10,10 +10,10 @@ export const SectionLabel: React.FC<SectionLabelProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`mb-6 ${className}`}>
-      <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill border border-white/95 text-accent text-[11px] font-mono font-bold tracking-wider uppercase shadow-xs">
-        <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-        <span className="whitespace-nowrap">{children}</span>
+    <div className={`flex items-center gap-2.5 bg-[#2A2A2A] rounded-full px-3.5 py-1.5 mb-8 w-fit border border-white/5 shadow-md ${className}`}>
+      <span className="w-2 h-2 rounded-full bg-[#FF5C35] animate-pulse" />
+      <span className="text-[11px] text-white/80 font-medium tracking-wide uppercase">
+        {children}
       </span>
     </div>
   );

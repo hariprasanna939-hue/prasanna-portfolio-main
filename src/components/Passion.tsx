@@ -1,28 +1,36 @@
 import React from 'react';
 import { passions, passionText, passionQuote } from '../data/site';
-import { SectionLabel } from './SectionLabel';
 import { MaskText } from './MaskText';
 import { Reveal } from './Reveal';
 
 export const Passion: React.FC = () => {
   return (
-    <section id="passion" className="py-28 md:py-36 px-6 md:px-12 bg-bg relative">
-      <div className="max-w-[1600px] mx-auto">
-        <SectionLabel>Passion &amp; Philosophy</SectionLabel>
+    <section id="passion" className="py-28 md:py-36 px-6 md:px-12 bg-[#1A1A1A] relative font-sans overflow-hidden">
+      <div className="max-w-[1440px] mx-auto">
+        
+        {/* Exactly matched Section Label Pill */}
+        <div className="flex items-center gap-2.5 bg-[#2A2A2A] rounded-full px-3.5 py-1.5 mb-8 w-fit border border-white/5 shadow-md">
+          <span className="w-2 h-2 rounded-full bg-[#FF5C35]" />
+          <span className="text-[11px] text-white/80 font-medium tracking-wide uppercase">
+            Passion & Philosophy
+          </span>
+        </div>
+
+        {/* Lead Headline */}
         <MaskText
           text="Core drivers & principles"
-          className="text-[clamp(2.4rem,6vw,5.5rem)] font-bold text-fg leading-none mb-16"
+          className="text-[clamp(2.4rem,6vw,5.5rem)] font-bold text-white leading-[1.05] mb-16 tracking-tight"
         />
 
-        {/* Numbered Liquid Glass Cards */}
-        <div className="flex flex-col gap-4 my-16">
+        {/* Numbered Premium Dark Cards */}
+        <div className="flex flex-col gap-5 my-16">
           {passions.map((item, idx) => (
             <Reveal key={idx} delay={idx * 0.08}>
-              <div className="group p-6 md:p-8 rounded-2xl glass-card border border-white/90 shadow-glass flex items-center gap-6 md:gap-10 transition-all duration-300 hover:scale-[1.01] hover:shadow-glass-lg cursor-default">
-                <span className="w-10 h-10 rounded-full glass-pill flex items-center justify-center text-xs font-mono text-accent font-bold tracking-wider shrink-0 shadow-xs border border-white/95">
+              <div className="group p-6 md:p-8 rounded-[24px] bg-[#111111] border border-white/5 shadow-lg flex items-center gap-6 md:gap-10 transition-all duration-300 hover:scale-[1.015] hover:bg-[#151515] hover:border-white/10 cursor-default">
+                <span className="w-12 h-12 rounded-full bg-[#2A2A2A] flex items-center justify-center text-sm font-mono text-[#FF5C35] font-bold tracking-wider shrink-0 border border-white/5 shadow-inner">
                   0{idx + 1}
                 </span>
-                <span className="text-[clamp(1.6rem,4vw,3.2rem)] font-bold text-fg tracking-tight transition-transform duration-300 group-hover:translate-x-2">
+                <span className="text-[clamp(1.6rem,4vw,3.2rem)] font-bold text-white tracking-tight transition-transform duration-300 group-hover:translate-x-2">
                   {item}
                 </span>
               </div>
@@ -33,33 +41,37 @@ export const Passion: React.FC = () => {
         {/* 12-Column Shaping Design Thinking Row */}
         <Reveal
           delay={0.1}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 pt-16 border-t border-line/70 mb-20"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 pt-16 border-t border-white/10 mb-20"
         >
           <div className="lg:col-span-4">
-            <span className="text-xs uppercase tracking-wider font-mono font-bold text-accent block">
+            <span className="text-xs uppercase tracking-widest font-mono font-bold text-[#FF5C35] block">
               Architectural Synthesis
             </span>
-            <p className="text-xs uppercase tracking-wider2 font-bold text-muted font-mono mt-1">
+            <p className="text-xs uppercase tracking-widest font-bold text-white/40 font-mono mt-1.5">
               How passions shape my architecture
             </p>
           </div>
           <div className="lg:col-span-8">
-            <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-normal">
+            <p className="text-lg md:text-[1.1rem] text-white/70 leading-relaxed font-normal">
               {passionText}
             </p>
           </div>
         </Reveal>
 
-        {/* VisionOS Frosted Blockquote Panel */}
+        {/* Dark Layered Blockquote Panel */}
         <Reveal delay={0.2} className="pt-8">
-          <blockquote className="p-8 sm:p-14 rounded-3xl glass-panel border border-white/95 shadow-glass-lg max-w-5xl relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-[#DDEBFF]/40 rounded-full blur-3xl pointer-events-none" />
-            <p className="text-[clamp(1.85rem,4.5vw,3.8rem)] font-normal italic font-serif leading-[1.18] text-slate-900 relative z-10">
+          <blockquote className="p-8 sm:p-14 rounded-[32px] bg-[#111111] border border-white/5 shadow-2xl max-w-5xl relative overflow-hidden group">
+            
+            {/* Colored Ambient Glow */}
+            <div className="absolute -top-10 -right-10 w-72 h-72 bg-[#FF5C35]/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-[#FF5C35]/20 transition-colors duration-700" />
+            
+            <p className="text-[clamp(1.85rem,4.5vw,3.8rem)] font-normal italic font-serif leading-[1.18] text-white relative z-10 drop-shadow-sm">
               &ldquo;{passionQuote}&rdquo;
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              <span className="w-8 h-[1.5px] bg-accent" />
-              <span className="text-xs font-mono uppercase tracking-wider text-muted font-bold">
+            
+            <div className="mt-10 flex items-center gap-4 relative z-10">
+              <span className="w-12 h-[2px] bg-[#FF5C35]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-white/50 font-bold">
                 Design Axiom
               </span>
             </div>

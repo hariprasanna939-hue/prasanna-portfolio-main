@@ -82,13 +82,13 @@ export const Hero: React.FC<HeroProps> = () => {
         onError={(e) => {
           const target = e.currentTarget;
           if (target.src.includes('prasanna-cutout.png')) {
-            target.src = '/images/prasanna-portfolio.png';
-          } else if (target.src.includes('prasanna-portfolio.png')) {
+            target.src = '/images/prasanna-cutout.webp';
+          } else if (target.src.includes('prasanna-cutout.webp')) {
             target.src = placeholderImage;
           }
         }}
         alt={profile.name}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-auto h-[78vh] sm:h-[84vh] md:h-[88vh] lg:h-[90vh] xl:h-[92vh] max-h-[calc(100svh-5.5rem)] sm:max-h-[calc(100svh-6.5rem)] object-contain object-bottom z-10 pointer-events-none drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)] transition-all duration-300"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-auto h-[74vh] sm:h-[82vh] md:h-[86vh] lg:h-[90vh] xl:h-[92vh] max-h-[calc(100svh-5rem)] sm:max-h-[calc(100svh-6.5rem)] object-contain object-bottom z-10 pointer-events-none drop-shadow-[0_25px_60px_rgba(0,0,0,0.6)] transition-all duration-300"
       />
 
       {/* 3. CONTENT WRAPPER */}
@@ -108,7 +108,7 @@ export const Hero: React.FC<HeroProps> = () => {
             </div>
             
             {/* Main Headline */}
-            <h2 className="text-[clamp(2rem,3.5vw,3.2rem)] text-white font-semibold leading-[1.15] tracking-tight">
+            <h2 className="text-[clamp(2rem,3.5vw,3.2rem)] text-white font-semibold leading-[1.15] tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
               {profile.heroHeadline || "Brand & UI/UX Designer based in London"}
             </h2>
           </div>
@@ -117,7 +117,7 @@ export const Hero: React.FC<HeroProps> = () => {
           <div ref={rightContentRef} className="max-w-[340px] lg:w-1/3 flex flex-col lg:items-start self-end lg:self-auto text-left">
             
             {/* Subtext Paragraph */}
-            <p className="text-white/70 text-[15px] mb-8 leading-relaxed font-normal">
+            <p className="text-white/80 text-[15px] mb-8 leading-relaxed font-normal drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
               {profile.heroSub || `Hi, I'm ${profile.name} – a UI/UX and brand designer passionate about creating seamless digital experiences that connect and convert.`}
             </p>
             

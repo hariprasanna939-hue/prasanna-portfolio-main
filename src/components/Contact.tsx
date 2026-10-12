@@ -135,31 +135,36 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-28 md:py-36 px-6 md:px-12 bg-bg relative">
-      <div className="max-w-[1600px] mx-auto">
+    <section id="contact" className="py-28 md:py-36 px-6 md:px-12 bg-[#1A1A1A] text-white relative">
+      <div className="max-w-[1440px] mx-auto">
         <SectionLabel>Inquiries &amp; Collaboration</SectionLabel>
         <MaskText
           text="Start a conversation"
-          className="text-[clamp(2.4rem,6vw,5.5rem)] font-bold text-fg leading-none mb-20 md:mb-28"
+          className="text-[clamp(2rem,4vw,3.5rem)] font-semibold text-white leading-[1.15] tracking-tight mb-20 md:mb-28"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-18 items-start">
           {/* Left Column (5 Cols): Direct Contacts & Socials */}
           <div className="lg:col-span-5 flex flex-col items-start gap-8">
-            <p className="text-lg md:text-xl text-slate-700 leading-relaxed font-normal">
+            <p className="text-lg md:text-xl text-white/70 leading-relaxed font-normal">
               I’m always open to discussing cutting-edge AI architectures,
               resilient full-stack systems, or innovative enterprise projects.
               Let’s create something extraordinary together.
             </p>
 
             <div className="flex flex-wrap items-center gap-4">
+              {/* Primary CTA button with circular white icon wrapper */}
               <a
                 href={resumeUrl}
                 download="Resume.pdf"
-                className="btn btn-primary gap-2 text-xs shadow-md hover:shadow-glass-glow"
+                className="group bg-[#FF5C35] hover:bg-[#ff7251] text-white rounded-full flex items-center p-1.5 pr-6 gap-3.5 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_8px_24px_rgba(255,92,53,0.2)]"
               >
-                <Download size={15} />
-                <span>Download Resume</span>
+                <div className="w-9 h-9 bg-white rounded-full flex justify-center items-center text-[#FF5C35] group-hover:scale-95 transition-transform duration-300">
+                  <Download size={16} strokeWidth={2.5} />
+                </div>
+                <span className="font-medium text-sm tracking-wide">
+                  Download Resume
+                </span>
               </a>
 
               {linkedinSocial && (
@@ -167,14 +172,15 @@ export const Contact: React.FC = () => {
                   href={linkedinSocial.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-ghost text-xs"
+                  className="bg-[#2A2A2A] hover:bg-[#333333] border border-white/5 text-white rounded-full flex items-center px-6 py-3 gap-2.5 transition-all duration-300 hover:-translate-y-0.5 font-medium text-sm"
                 >
                   <span>Connect on LinkedIn</span>
+                  <ArrowUpRight size={15} className="text-white/40 group-hover:text-white" />
                 </a>
               )}
             </div>
 
-            {/* Vertical Social Glass Cards */}
+            {/* Vertical Social Dark Cards */}
             <div className="flex flex-col gap-3.5 mt-2 w-full max-w-sm">
               {socials.map((social) => {
                 const isEmail = social.id === 'email';
@@ -184,16 +190,16 @@ export const Contact: React.FC = () => {
                     href={social.href}
                     target={isEmail ? undefined : '_blank'}
                     rel={isEmail ? undefined : 'noopener noreferrer'}
-                    className="flex items-center gap-4 p-4 rounded-2xl glass-card border border-white/95 shadow-glass hover:shadow-glass-lg hover:-translate-y-0.5 transition-all group select-none"
+                    className="flex items-center gap-4 p-4 rounded-[20px] bg-[#111111] border border-white/5 shadow-2xl hover:border-white/10 hover:-translate-y-0.5 transition-all group select-none"
                   >
-                    <div className="w-11 h-11 rounded-xl glass-pill border border-white/95 text-slate-800 flex items-center justify-center group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-colors shrink-0 shadow-xs">
+                    <div className="w-11 h-11 rounded-xl bg-[#2A2A2A] border border-white/5 text-white/80 flex items-center justify-center group-hover:bg-[#FF5C35] group-hover:text-white transition-colors shrink-0 shadow-sm">
                       <SocialIcon id={social.id} className="w-5 h-5" />
                     </div>
                     <div className="flex flex-col min-w-0">
-                      <span className="text-xs font-bold font-mono uppercase tracking-wider text-fg group-hover:text-accent transition-colors">
+                      <span className="text-xs font-bold font-mono uppercase tracking-wider text-white group-hover:text-[#FF5C35] transition-colors">
                         {social.label}
                       </span>
-                      <span className="text-xs text-muted truncate">
+                      <span className="text-xs text-white/40 truncate">
                         {social.handle}
                       </span>
                     </div>
@@ -203,16 +209,16 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column (7 Cols): VisionOS Glass Form Panel */}
-          <div className="lg:col-span-7 glass-panel p-8 sm:p-12 rounded-3xl border border-white/95 shadow-glass-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#DDEBFF]/35 rounded-full blur-2xl pointer-events-none" />
+          {/* Right Column (7 Cols): Dark Form Panel */}
+          <div className="lg:col-span-7 bg-[#111111] p-8 sm:p-12 rounded-[32px] border border-white/5 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF5C35]/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="flex items-center justify-between pb-6 mb-8 border-b border-line/60">
-                <h3 className="text-xl sm:text-2xl font-bold text-fg tracking-tight">
+              <div className="flex items-center justify-between pb-6 mb-8 border-b border-white/10">
+                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   Send an enquiry
                 </h3>
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold text-accent glass-pill border border-white/95 shadow-xs">
+                <span className="px-3.5 py-1 rounded-full text-xs font-mono font-bold text-[#FF5C35] bg-[#2A2A2A] border border-white/5 shadow-sm">
                   Direct Channel
                 </span>
               </div>
@@ -222,7 +228,7 @@ export const Contact: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-name"
-                    className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                    className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                   >
                     Your Name *
                   </label>
@@ -236,13 +242,13 @@ export const Contact: React.FC = () => {
                     placeholder="e.g. Sarah Jenkins"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'error-name' : undefined}
-                    className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 placeholder:text-slate-400 text-sm outline-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white placeholder:text-white/40 text-sm outline-none focus:border-[#FF5C35] transition-colors"
                   />
                   {errors.name && (
                     <p
                       id="error-name"
                       role="alert"
-                      className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"
+                      className="text-xs text-[#FF5C35] font-medium mt-1 flex items-center gap-1"
                     >
                       <AlertCircle size={13} />
                       {errors.name}
@@ -254,7 +260,7 @@ export const Contact: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-email"
-                    className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                    className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                   >
                     Work Email *
                   </label>
@@ -268,13 +274,13 @@ export const Contact: React.FC = () => {
                     placeholder="name@company.com"
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'error-email' : undefined}
-                    className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 placeholder:text-slate-400 text-sm outline-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white placeholder:text-white/40 text-sm outline-none focus:border-[#FF5C35] transition-colors"
                   />
                   {errors.email && (
                     <p
                       id="error-email"
                       role="alert"
-                      className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"
+                      className="text-xs text-[#FF5C35] font-medium mt-1 flex items-center gap-1"
                     >
                       <AlertCircle size={13} />
                       {errors.email}
@@ -287,7 +293,7 @@ export const Contact: React.FC = () => {
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="contact-phone"
-                      className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                      className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                     >
                       Phone Number (Optional)
                     </label>
@@ -300,13 +306,13 @@ export const Contact: React.FC = () => {
                       placeholder="+91 ..."
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? 'error-phone' : undefined}
-                      className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 placeholder:text-slate-400 text-sm outline-none"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white placeholder:text-white/40 text-sm outline-none focus:border-[#FF5C35] transition-colors"
                     />
                     {errors.phone && (
                       <p
                         id="error-phone"
                         role="alert"
-                        className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"
+                        className="text-xs text-[#FF5C35] font-medium mt-1 flex items-center gap-1"
                       >
                         <AlertCircle size={13} />
                         {errors.phone}
@@ -317,7 +323,7 @@ export const Contact: React.FC = () => {
                   <div className="flex flex-col gap-1.5">
                     <label
                       htmlFor="contact-company"
-                      className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                      className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                     >
                       Organization / Company
                     </label>
@@ -328,7 +334,7 @@ export const Contact: React.FC = () => {
                       value={form.company}
                       onChange={handleChange}
                       placeholder="e.g. Acme Innovations"
-                      className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 placeholder:text-slate-400 text-sm outline-none"
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white placeholder:text-white/40 text-sm outline-none focus:border-[#FF5C35] transition-colors"
                     />
                   </div>
                 </div>
@@ -337,7 +343,7 @@ export const Contact: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-type"
-                    className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                    className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                   >
                     Opportunity / Project Scope
                   </label>
@@ -346,10 +352,10 @@ export const Contact: React.FC = () => {
                     name="projectType"
                     value={form.projectType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 text-sm outline-none cursor-pointer"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white text-sm outline-none cursor-pointer focus:border-[#FF5C35] transition-colors"
                   >
                     {projectTypes.map((t) => (
-                      <option key={t} value={t} className="bg-white text-slate-900">
+                      <option key={t} value={t} className="bg-[#1A1A1A] text-white">
                         {t}
                       </option>
                     ))}
@@ -360,7 +366,7 @@ export const Contact: React.FC = () => {
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="contact-message"
-                    className="text-xs font-mono uppercase tracking-wider font-semibold text-slate-700"
+                    className="text-xs font-mono uppercase tracking-wider font-semibold text-white/60"
                   >
                     Message &amp; Objectives *
                   </label>
@@ -374,13 +380,13 @@ export const Contact: React.FC = () => {
                     placeholder="Describe your project, timeline, and architectural requirements..."
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? 'error-message' : undefined}
-                    className="w-full px-4 py-3.5 rounded-xl glass-input text-slate-900 placeholder:text-slate-400 text-sm outline-none resize-none"
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#2A2A2A] border border-white/5 text-white placeholder:text-white/40 text-sm outline-none resize-none focus:border-[#FF5C35] transition-colors"
                   />
                   {errors.message && (
                     <p
                       id="error-message"
                       role="alert"
-                      className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1"
+                      className="text-xs text-[#FF5C35] font-medium mt-1 flex items-center gap-1"
                     >
                       <AlertCircle size={13} />
                       {errors.message}
@@ -394,14 +400,14 @@ export const Contact: React.FC = () => {
                     <div
                       className={`p-4 rounded-xl text-sm font-semibold flex items-center gap-2 ${
                         statusMessage.type === 'success'
-                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                          : 'bg-red-50 text-red-800 border border-red-200'
+                          ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30'
+                          : 'bg-red-950/40 text-red-300 border border-red-500/30'
                       }`}
                     >
                       {statusMessage.type === 'success' ? (
-                        <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                        <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
                       ) : (
-                        <AlertCircle size={16} className="text-red-600 shrink-0" />
+                        <AlertCircle size={16} className="text-red-400 shrink-0" />
                       )}
                       <span>{statusMessage.text}</span>
                     </div>
@@ -412,13 +418,19 @@ export const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn btn-primary w-full py-4 text-sm font-semibold flex items-center justify-center gap-2 group disabled:opacity-50 shadow-md hover:shadow-glass-glow"
+                  className="group bg-[#FF5C35] hover:bg-[#ff7251] text-white rounded-full w-full p-2 pr-6 flex items-center justify-between transition-all duration-300 hover:-translate-y-0.5 shadow-[0_8px_24px_rgba(255,92,53,0.2)] disabled:opacity-50"
                 >
-                  <span>{isSubmitting ? 'Transmitting…' : 'Send Message'}</span>
-                  <ArrowUpRight
-                    size={16}
-                    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
+                  <div className="w-9 h-9 bg-white rounded-full flex justify-center items-center text-[#FF5C35] group-hover:scale-95 transition-transform duration-300">
+                    <ArrowUpRight
+                      size={18}
+                      strokeWidth={2.5}
+                      className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  </div>
+                  <span className="font-semibold text-sm tracking-wide">
+                    {isSubmitting ? 'Transmitting…' : 'Send Message'}
+                  </span>
+                  <div className="w-9" />
                 </button>
               </form>
             </div>

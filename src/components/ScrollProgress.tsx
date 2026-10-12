@@ -10,10 +10,10 @@ export const ScrollProgress: React.FC = () => {
   });
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-[2.5px] z-[70] pointer-events-none bg-slate-200/40 backdrop-blur-xs">
+    <div className="fixed top-0 left-0 right-0 h-[3px] z-[70] pointer-events-none bg-white/5">
       <motion.div
         style={{ scaleX }}
-        className="h-full bg-gradient-to-r from-[#3978F6] via-[#60A5FA] to-[#818CF8] shadow-[0_0_8px_rgba(57,120,246,0.5)] origin-left"
+        className="h-full bg-[#FF5C35] shadow-[0_0_12px_rgba(255,92,53,0.8)] origin-left"
       />
     </div>
   );
