@@ -4,7 +4,14 @@ import { SocialIcon } from './Icons';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-white/10 py-12 md:py-16 px-6 md:px-12 bg-[#111111] text-white relative z-10">
+    <footer
+      className="border-t border-white/10 py-12 md:py-16 px-4 sm:px-6 md:px-12 bg-[#111111] text-white relative z-10"
+      style={{
+        paddingBottom: 'max(2.5rem, calc(1.5rem + env(safe-area-inset-bottom, 0px)))',
+        paddingLeft: 'max(1rem, env(safe-area-inset-left, 1rem))',
+        paddingRight: 'max(1rem, env(safe-area-inset-right, 1rem))',
+      }}
+    >
       <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
         {/* Left Column: Name in Display Type */}
         <div>

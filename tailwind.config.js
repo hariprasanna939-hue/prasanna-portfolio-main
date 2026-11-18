@@ -40,6 +40,7 @@ export default {
           'sans-serif',
         ],
         serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        condensed: ['"Bebas Neue"', 'Anton', 'Impact', 'sans-serif'],
       },
       letterSpacing: {
         wider2: '0.18em',

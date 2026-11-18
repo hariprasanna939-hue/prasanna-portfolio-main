@@ -210,6 +210,18 @@ export const eventItems: MediaItem[] = [
     width: 2048,
     height: 1536,
   },
+  {
+    src: "/images/founder2.jpeg",
+    alt: "FounderX Summit 2026 — Startup Ecosystem Leadership & Keynote Session",
+    width: 800,
+    height: 1422,
+  },
+  {
+    src: "/images/founder3.jpeg",
+    alt: "FounderX Summit 2026 — Founder Networking & Industry Collaboration",
+    width: 800,
+    height: 1422,
+  },
 ];
 
 export const bootcampDescription = `🚀 Feeling really happy and grateful to be part of the IDE Bootcamp again!
@@ -274,6 +286,12 @@ export const bootcampItems: MediaItem[] = [
     alt: "Pitching and Business Model Presentation",
     width: 1600,
     height: 1200,
+  },
+  {
+    src: "/images/bootcamp/IMG_5169.JPG",
+    alt: "Team AmiesStack Collaboration & Faculty Mentorship Session",
+    width: 2268,
+    height: 4032,
   },
 ];
 
@@ -359,6 +377,12 @@ export const sih25Items: MediaItem[] = [
     src: "/images/hackathon/1756199972143.jpeg",
     alt: "Smart India Hackathon 25 — Team Crypto Core & SIH Cohort on Stage",
     width: 2048,
+    height: 1536,
+  },
+  {
+    src: "/images/sih-2.jpeg",
+    alt: "Smart India Hackathon 25 — Team Project Presentation & Recognition Ceremony",
+    width: 1152,
     height: 1536,
   },
 ];
@@ -472,6 +496,9 @@ export const tools: ToolItem[] = [
   { name: "Docker & Cloud", use: "Containerized Workflows & Production CI/CD" },
   { name: "Figma", use: "Design Systems & High-Fidelity Prototyping" },
 ];
+
+export * from './projects';
+export * from './contact';
 
 export interface ProjectCase {
   situation: string;

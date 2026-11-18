@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { MotionConfig, AnimatePresence } from 'framer-motion';
+import { MotionConfig } from 'framer-motion';
 import { HeroAssets, preloadHero } from './lib/heroAssets';
 import { startLenis, stopLenis } from './lib/lenis';
 import { ScrollTrigger } from './lib/gsap';
 import { prefersReducedMotion } from './lib/motion';
 
-import { Loader } from './components/Loader';
 import { Cursor } from './components/Cursor';
 import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
@@ -24,105 +23,88 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
-  const [assets, setAssets] = useState<HeroAssets | null>(null);
-  const [progress, setProgress] = useState<number>(0);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
+  const [assets, setAssets] = useState<HeroAssets>({
+    mode: 'static',
+    portrait: null,
+    frames: [],
+  });
 
-  // 1. Preload Hero Assets and pipe progress
+  // 1. Immediately reset scroll position to top (Hero) and start Lenis & background assets
   useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    document.documentElement.classList.remove('is-loading');
+
+    let lenis: ReturnType<typeof startLenis> | null = null;
+    if (!prefersReducedMotion()) {
+      lenis = startLenis();
+      lenis.scrollTo(0, { immediate: true });
+    }
+
     let unmounted = false;
-    preloadHero((p) => {
-      if (!unmounted) setProgress(p);
-    }).then((loadedAssets) => {
-      if (!unmounted) {
+    preloadHero(() => {}).then((loadedAssets) => {
+      if (!unmounted && loadedAssets) {
         setAssets(loadedAssets);
       }
     });
 
-    return () => {
-      unmounted = true;
-    };
-  }, []);
-
-  // 2. Start Lenis once assets exist and motion is allowed
-  useEffect(() => {
-    if (!assets) return;
-
-    if (!prefersReducedMotion()) {
-      startLenis();
-    }
-
-    return () => {
-      stopLenis();
-    };
-  }, [assets]);
-
-  // 3. Refresh ScrollTrigger when fonts and window finish loading
-  useEffect(() => {
-    if (!assets) return;
-
     document.fonts.ready.then(() => {
       ScrollTrigger.refresh();
+      if (window.scrollY === 0 && lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
     });
 
     const handleLoad = () => {
+      window.scrollTo(0, 0);
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      }
       ScrollTrigger.refresh();
     };
 
     window.addEventListener('load', handleLoad);
+    window.addEventListener('pageshow', handleLoad);
+
     return () => {
+      unmounted = true;
+      stopLenis();
       window.removeEventListener('load', handleLoad);
+      window.removeEventListener('pageshow', handleLoad);
     };
-  }, [assets]);
-
-  const handleLoaderFinish = () => {
-    setShowLoader(false);
-  };
-
-  const handleLoaderExitComplete = () => {
-    document.documentElement.classList.remove('is-loading');
-    window.scrollTo(0, 0);
-    ScrollTrigger.refresh();
-  };
+  }, []);
 
   return (
     <MotionConfig reducedMotion="user">
-      <a href="#about" className="skip-link">
+      <a href="#top" className="skip-link">
         Skip to content
       </a>
 
-      <AnimatePresence onExitComplete={handleLoaderExitComplete}>
-        {showLoader && (
-          <Loader
-            progress={progress}
-            ready={assets !== null}
-            onFinish={handleLoaderFinish}
-          />
-        )}
-      </AnimatePresence>
-
-      {assets && (
-        <>
-          <Cursor />
-          <ScrollProgress />
-          <Navbar />
-          <main>
-            <Hero assets={assets} />
-            <About />
-            <Marquee />
-            <Passion />
-            <Beyond />
-            <Skills />
-            <Projects />
-            <CaseStudies />
-            <Journey />
-            <Tools />
-            <Achievements />
-            <Contact />
-          </main>
-          <Footer />
-        </>
-      )}
+      <Cursor />
+      <ScrollProgress />
+      <Navbar />
+      <main>
+        <Hero assets={assets} />
+        <About />
+        <Marquee />
+        <Passion />
+        <Beyond />
+        <Skills />
+        <Projects />
+        <CaseStudies />
+        <Journey />
+        <Tools />
+        <Achievements />
+        <Contact />
+      </main>
+      <Footer />
     </MotionConfig>
   );
 };

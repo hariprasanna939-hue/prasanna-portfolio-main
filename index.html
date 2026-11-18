@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Prasanna Hari — Product Architect &amp; Full-Stack Engineer</title>
     <meta
       name="description"
       content="Personal portfolio of Prasanna Hari — Product Architect and Full-Stack Engineer building futuristic AI systems, scalable web architecture, and cinematic digital products."
     />
-    <meta name="theme-color" content="#F5F7FB" />
+    <meta name="theme-color" content="#111111" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
@@ -27,16 +29,27 @@
     />
     <meta name="twitter:image" content="/og.jpg" />
 
-    <!-- Google Fonts: Inter & Instrument Serif -->
+    <!-- Google Fonts: Bebas Neue, Anton, Inter & Instrument Serif -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Instrument+Serif:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Instrument+Serif:ital@0;1&display=swap"
       rel="stylesheet"
     />
 
     <!-- Critical Image Preloads -->
     <link rel="preload" as="image" href="/images/portrait.webp" />
+
+    <!-- Ensure reload always lands at the Hero section -->
+    <script>
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

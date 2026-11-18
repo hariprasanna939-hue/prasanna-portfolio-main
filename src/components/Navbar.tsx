@@ -114,26 +114,31 @@ export const Navbar: React.FC = () => {
     <>
       {/* Floating Unified Pill Navigation */}
       <header
-        className={`fixed top-0 left-0 right-0 z-[60] px-4 sm:px-6 md:px-10 transition-all duration-500 pointer-events-none ${
-          scrolled ? 'pt-4' : 'pt-6'
-        }`}
+        className="fixed top-0 left-0 right-0 z-[60] px-3 sm:px-6 md:px-10 transition-all duration-500 pointer-events-none"
+        style={{
+          paddingTop: scrolled
+            ? 'max(0.75rem, env(safe-area-inset-top, 0.75rem))'
+            : 'max(1.25rem, env(safe-area-inset-top, 1.25rem))',
+          paddingLeft: 'max(0.75rem, env(safe-area-inset-left, 0.75rem))',
+          paddingRight: 'max(0.75rem, env(safe-area-inset-right, 0.75rem))',
+        }}
       >
         {/* Unified Dark Pill Container */}
-        <div className="max-w-[850px] mx-auto pointer-events-auto relative flex items-center justify-between p-2 rounded-full bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+        <div className="max-w-[850px] mx-auto pointer-events-auto relative flex items-center justify-between p-1.5 sm:p-2 rounded-full bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
           
           {/* Left: White Logo Circle & Name */}
           <button
             onClick={() => handleLinkClick('top')}
-            className="group flex items-center gap-3 focus-visible:outline-none transition-transform hover:scale-[1.02] z-20"
+            className="group flex items-center gap-2 sm:gap-3 focus-visible:outline-none transition-transform hover:scale-[1.02] z-20 min-h-[44px] min-w-[44px]"
             aria-label="Scroll to top"
           >
-            <div className="flex items-center justify-center w-11 h-11 rounded-full bg-white text-black shadow-sm transition-transform group-hover:scale-105">
-              <span className="text-[15px] font-bold tracking-tight">
+            <div className="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white text-black shadow-sm transition-transform group-hover:scale-105 shrink-0">
+              <span className="text-[14px] sm:text-[15px] font-bold tracking-tight">
                 {profile.logo}
               </span>
             </div>
             {/* Added Name Here */}
-            <span className="text-[15px] font-semibold tracking-wide text-white hidden sm:block pr-2">
+            <span className="text-[14px] sm:text-[15px] font-semibold tracking-wide text-white hidden sm:block pr-2">
               Prasanna Hari
             </span>
           </button>
@@ -146,7 +151,7 @@ export const Navbar: React.FC = () => {
                 <button
                   key={link.id}
                   onClick={() => handleLinkClick(link.id)}
-                  className={`relative px-5 py-2.5 rounded-full text-[14px] transition-all duration-300 outline-none ${
+                  className={`relative px-5 py-2.5 rounded-full text-[14px] min-h-[44px] inline-flex items-center justify-center transition-all duration-300 outline-none ${
                     isActive
                       ? 'text-white font-semibold'
                       : 'text-white/70 hover:text-white font-medium hover:bg-white/5'
@@ -169,7 +174,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-2 z-20">
             <button
               onClick={() => handleLinkClick('contact')}
-              className="hidden sm:inline-flex items-center justify-center px-7 py-3 rounded-full bg-white text-black text-[14px] font-semibold hover:bg-gray-200 transition-colors duration-300 shadow-sm"
+              className="hidden sm:inline-flex items-center justify-center px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-white text-black text-[13px] sm:text-[14px] font-semibold hover:bg-gray-200 transition-colors duration-300 shadow-sm min-h-[44px]"
             >
               Hire Me
             </button>
@@ -179,7 +184,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMenuOpen((prev) => !prev)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
-              className="lg:hidden w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all active:scale-95"
+              className="lg:hidden w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-all active:scale-95 min-h-[44px] min-w-[44px]"
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -207,7 +212,10 @@ export const Navbar: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.98 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mx-4 mt-24 mb-6 p-6 sm:p-8 rounded-[32px] bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-2xl flex flex-col justify-between max-h-[calc(100svh-7rem)] overflow-y-auto"
+              style={{
+                marginTop: 'max(5.5rem, calc(4.5rem + env(safe-area-inset-top, 0px)))',
+              }}
+              className="relative mx-3 sm:mx-4 mb-6 p-5 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-[#111111]/95 backdrop-blur-2xl border border-white/10 shadow-2xl flex flex-col justify-between max-h-[calc(100dvh-7rem)] overflow-y-auto"
             >
               <div>
                 <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/10">
